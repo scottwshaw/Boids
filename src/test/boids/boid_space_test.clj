@@ -2,10 +2,11 @@
   (:use clojure.test boids.boid boids.boid-space))
 
 (def b1 (struct-map boid
-	  :location (struct-map spatial-vector :x 1 :y 2)))
+	  :location (struct-map spatial-vector :x 1 :y 2)
+	  :velocity (struct-map spatial-vector :x 0 :y 0)))
 
 (defn initial-boid-space []
-  (struct-map boid-space :xmin -10 :xmax 10 :ymin 0 :ymax 20))
+  (struct-map boid-space :xmin -10 :xmax 10 :ymin 0 :ymax 20 :boids [b1]))
 
 (deftest test-should-correctly-identify-point-inside
   (let [s (initial-boid-space)
@@ -34,4 +35,4 @@
 
 (deftest test-should-return-list-of-all-boids
   (let [s (initial-boid-space)]
-    (is (
+    (is (some #(identical? b1 %) (boids s)))))
