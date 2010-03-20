@@ -55,4 +55,10 @@
     (is (not (nil? (some #(identical? b2 %) nearby-boids))))
     (is (not (nil? (some #(identical? b3 %) nearby-boids))))))
 
+(deftest test-should-not-return-boids-outside-specified-radius
+  (let [space (initial-boid-space)
+	point (struct-map spatial-vector :x 1.5 :y 1.82)
+	nearby-boids (boids-in-radius space point 2.0)]
+    (is (nil? (some #(identical? b4 %) nearby-boids)))))
+
 	
