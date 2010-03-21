@@ -1,4 +1,9 @@
-(use 'clojure.contrib.find-namespaces 'clojure.test 'boids.boid-test 'boids.boid-space-test
-     'boids.rules.center-of-mass-test)
+(def test-libs
+     ['boids.boid-test 
+      'boids.boid-space-test 
+      'boids.spatial-vector-test
+      'boids.rules.center-of-mass-test])
+     
+(apply use 'clojure.test test-libs)
 
-(run-tests 'boids.boid-test 'boids.boid-space-test 'boids.rules.center-of-mass-test)
+(apply run-tests test-libs)

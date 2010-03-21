@@ -1,5 +1,5 @@
 (ns boids.boid-space-test
-  (:use clojure.test boids.boid boids.boid-space))
+  (:use clojure.test boids.boid boids.boid-space boids.spatial-vector))
 
 (def b1 (struct-map boid
 	  :location (struct-map spatial-vector :x 1 :y 2)

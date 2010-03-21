@@ -1,5 +1,5 @@
 (ns boids.boid-space
-  (:use boids.boid))
+  (:use boids.boid boids.spatial-vector))
 
 (defstruct boid-space :xmin :xmax :ymin :ymax :boids)
 
