@@ -8,13 +8,13 @@
 
 (deftest test-should-access-boid-location-after-initialisation
   (let [b (initial-boid)]
-    (is (= 1 (x (location b))))
-    (is (= 2 (y (location b))))))
+    (is (= 1 (:x (:location b))))
+    (is (= 2 (:y (:location b))))))
 
 (deftest test-should-access-boid-velocity-after-initialisation
   (let [b (initial-boid)]
-    (is (= 0.1 (x (velocity b))))
-    (is (= 0.2 (y (velocity b))))))
+    (is (= 0.1 (:x (:velocity b))))
+    (is (= 0.2 (:y (:velocity b))))))
 
 (deftest test-should-accurately-compute-distance-between-points-in-one-direction
   (let [p1 (struct-map spatial-vector :x 1.0 :y 2.0)

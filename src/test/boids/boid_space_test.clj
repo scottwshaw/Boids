@@ -45,7 +45,7 @@
 
 (deftest test-should-return-list-of-all-boids
   (let [s (initial-boid-space)]
-    (is (not (nil? (some #(identical? b1 %) (boids s)))))))
+    (is (not (nil? (some #(identical? b1 %) (:boids s)))))))
 
 (deftest test-should-return-all-boids-in-specified-radius
   (let [space (initial-boid-space)
