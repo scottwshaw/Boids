@@ -36,4 +36,9 @@
   (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)]
     (is (= 0.75 (:x (sv-div sv1 2.0))))
     (is (= 1.0 (:y (sv-div sv1 2.0))))))
+
+(deftest test-should-correctly-multiply
+  (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)]
+    (is (= 3.0 (:x (sv-mul sv1 2.0))))
+    (is (= 4.0 (:y (sv-mul sv1 2.0))))))
   
