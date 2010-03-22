@@ -12,7 +12,7 @@
 				      avoidance-radius)))
 	zero-point (struct-map spatial-vector :x 0 :y 0)
 	the-point (:location the-boid)]
-    (apply sv-diff zero-point (map #(sv-diff % the-point) points-to-avoid))))
+    (apply sv-sum (map #(sv-diff the-point %) points-to-avoid))))
     
 
     
