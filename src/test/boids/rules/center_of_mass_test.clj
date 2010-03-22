@@ -23,7 +23,7 @@
 ;;
 ;; One thing I'm not really understanding right now is why the variable name doesn't have
 ;; to be namespace qualified since I'm currently in a different namespace than 
-;; boids.rules.center-of-mass.  I guess the :use thing just unifies all those namespaces?
+;; boids.rules.center-of-mass.  I guess the :use just imports everything into the current namespace?
 (deftest test-should-correctly-calculate-center-of-mass-adjustment
   (binding [center-of-mass-adjustment-factor 1000.0]
     (is (= (center-of-mass-adjustment b2 (initial-boid-space))

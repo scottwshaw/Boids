@@ -21,3 +21,12 @@
 
 (defn sv-mul [sv m]
   (struct-map spatial-vector :x (* (:x sv) m) :y (* (:y sv) m)))
+
+(defn sv-diff 
+  ([] (struct-map spatial-vector :x 0 :y 0))
+  ([p1 p2] 
+     (struct-map spatial-vector 
+       :x (- (:x p1) (:x p2)) 
+       :y (- (:y p1) (:y p2))))
+  ([p1 p2 & more]
+     (reduce sv-diff (sv-diff p1 p2) more)))

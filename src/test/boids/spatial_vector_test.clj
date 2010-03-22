@@ -38,3 +38,15 @@
 (deftest test-should-correctly-multiply
   (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)]
     (is (=  (sv-mul sv1 2.0) (struct-map spatial-vector :x 3.0 :y 4.0)))))
+
+(deftest test-should-correctly-subtract-two-points
+  (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)
+	sv2 (struct-map spatial-vector :x -0.2 :y 1.5)]
+    (is (= (sv-diff sv2 sv1) (struct-map spatial-vector :x -1.7 :y -0.5)))))
+
+(deftest test-should-correctly-subtract-more-than-two-points
+  (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)
+	sv2 (struct-map spatial-vector :x -0.2 :y 1.5)
+	sv3 (struct-map spatial-vector :x -0.2 :y 1.5)
+	sv4 (struct-map spatial-vector :x -0.2 :y 1.5)]
+    (is (= (sv-diff sv1 sv2 sv3 sv4) (struct-map spatial-vector :x 2.1 :y -2.5)))))
