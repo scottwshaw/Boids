@@ -20,6 +20,3 @@
 (deftest test-should-correctly-calculate-center-of-mass-adjustment
   (is (= (center-of-mass-adjustment b2 (initial-boid-space))
 	 (struct-map spatial-vector :x -0.008333333333333333 :y 0.035))))
-    
-
-

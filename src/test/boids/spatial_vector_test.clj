@@ -29,16 +29,12 @@
 	sv4 (struct-map spatial-vector :x -1.75 :y 1.25)
 	sv5 (struct-map spatial-vector :x -1.75 :y 1.25)
 	svecs [sv1 sv2 sv3 sv4 sv5]]
-    (is (= -5.5 (:x (apply sv-sum svecs))))
-    (is (= 7.0 (:y (apply sv-sum svecs))))))
+    (is (= (apply sv-sum svecs) (struct-map spatial-vector :x -5.5 :y 7.0)))))
 
 (deftest test-should-correctly-divide
   (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)]
-    (is (= 0.75 (:x (sv-div sv1 2.0))))
-    (is (= 1.0 (:y (sv-div sv1 2.0))))))
+    (is (= (sv-div sv1 2.0) (struct-map spatial-vector :x 0.75 :y 1.0)))))
 
 (deftest test-should-correctly-multiply
   (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)]
-    (is (= 3.0 (:x (sv-mul sv1 2.0))))
-    (is (= 4.0 (:y (sv-mul sv1 2.0))))))
-  
+    (is (=  (sv-mul sv1 2.0) (struct-map spatial-vector :x 3.0 :y 4.0)))))
