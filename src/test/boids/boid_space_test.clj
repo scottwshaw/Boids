@@ -3,16 +3,16 @@
 
 (def b1 (struct-map boid
 	  :location (struct-map spatial-vector :x 1 :y 2)
-	  :velocity (struct-map spatial-vector :x 0 :y 0)))
+	  :velocity (struct-map spatial-vector :x 4 :y 2)))
 (def b2 (struct-map boid
 	  :location (struct-map spatial-vector :x 2 :y 1)
-	  :velocity (struct-map spatial-vector :x 0 :y 0)))
+	  :velocity (struct-map spatial-vector :x 3 :y 5)))
 (def b3 (struct-map boid
 	  :location (struct-map spatial-vector :x 1.5 :y 2.5)
-	  :velocity (struct-map spatial-vector :x 0 :y 0)))
+	  :velocity (struct-map spatial-vector :x 5 :y 4)))
 (def b4 (struct-map boid
 	  :location (struct-map spatial-vector :x -5 :y 6)
-	  :velocity (struct-map spatial-vector :x 0 :y 0)))
+	  :velocity (struct-map spatial-vector :x 1 :y 0)))
 
 (defn initial-boid-space []
   (struct-map boid-space 

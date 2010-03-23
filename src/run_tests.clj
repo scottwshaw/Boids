@@ -3,7 +3,8 @@
       'boids.boid-space-test 
       'boids.spatial-vector-test
       'boids.rules.avoidance-test
-      'boids.rules.center-of-mass-test])
+      'boids.rules.center-of-mass-test
+      'boids.rules.match-velocity-test])
      
 (apply use 'clojure.test test-libs)
 
