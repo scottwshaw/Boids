@@ -7,5 +7,4 @@
 
 (deftest test-should-match-velocities-of-other-boids
   (let [bspace (initial-boid-space)]
-    (is (= (struct-map spatial-vector :x 3.33333333333 :y 2.0) (velocity-adjustment b2 bspace)))))
-    
+    (is (= (struct-map spatial-vector :x 3.3333333333333335 :y 2.0) (velocity-adjustment b2 bspace)))))
