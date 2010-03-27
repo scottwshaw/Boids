@@ -68,4 +68,14 @@
 	nearby-boids (boids-in-radius space point 2.0)]
     (is (nil? (some #(identical? b4 %) nearby-boids)))))
 
+(deftest test-boid-should-be-in-space-after-adding
+  (let [space (initial-boid-space)
+	new-boid (struct-map boid
+		   :location (struct-map spatial-vector :x -9 :y 6)
+		   :velocity (struct-map spatial-vector :x 0.0 :y 0.0))]
+    (is (some #(= new-boid %) (:boids (add-boid-to new-boid space))))))
+    
+
+
+
 	
