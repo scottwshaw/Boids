@@ -1,8 +1,8 @@
-(ns boids.rules.match-velocity-test
+(ns boids.rules.velocity-test
   (:use clojure.test 
 	boids.boid
 	boids.boid-space-test 
-	boids.rules.match-velocity
+	boids.rules.velocity
 	boids.spatial-vector))
 
 (deftest test-should-match-velocities-of-other-boids

@@ -1,4 +1,4 @@
-(ns boids.rules.match-velocity
+(ns boids.rules.velocity
   (:use boids.boid-space boids.spatial-vector))
 
 (def velocity-factor (/ 1.0 8.0))
