@@ -5,9 +5,10 @@
 	boids.rules.bounds
 	boids.spatial-vector))
 
+; is it ok to depend on bounds-adjustment-factor in a test?
 (deftest test-should-turn-boid-at-left-edge
-  (let [the-boid (struct boid (struct spatial-vector -9.0 6.0) (struct spatial-vector 0.0 0.0))
-; is it ok to dependon  bounds-adjustment-factor in a test?
-	expected-bounds-adjustment (struct spatial-vector bounds-adjustment-factor 0.0)]
-    (is (= (bounds-adjustment the-boid (initial-boid-space)) (expected-bounds-adjustment)))))
+  (let [loc (struct spatial-vector -11.0 6.0)
+	the-boid (struct-map boid :location loc)
+	expected-adjustment (struct spatial-vector bounds-adjustment-factor 0.0)]
+    (is (= (bounds-adjustment the-boid (initial-boid-space)) expected-adjustment))))
 	
