@@ -16,11 +16,14 @@
 	p2 (struct-map spatial-vector :x -1.0 :y -3.0)]
     (is (<= 3.16227 (distance-between p1 p2) 3.16228))))
 
+(deftest test-should-accurately-sum-one-spatial-vectors
+  (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)]
+    (is (= (sv-sum sv1) sv1))))
+
 (deftest test-should-accurately-sum-two-spatial-vectors
   (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)
 	sv2 (struct-map spatial-vector :x -1.75 :y 1.25)]
-    (is (= -0.25 (:x (sv-sum sv1 sv2))))
-    (is (= 3.25 (:y (sv-sum sv1 sv2))))))
+    (is (= (struct spatial-vector -0.25 3.25) (sv-sum sv1 sv2)))))
 
 (deftest test-should-accurately-sum-arbitrary-numbers-of-spatial-vectors
   (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)
@@ -38,6 +41,10 @@
 (deftest test-should-correctly-multiply
   (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)]
     (is (=  (sv-mul sv1 2.0) (struct-map spatial-vector :x 3.0 :y 4.0)))))
+
+(deftest test-should-correctly-subtract-one-point
+  (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)]
+    (is (= (sv-diff sv1) sv1))))
 
 (deftest test-should-correctly-subtract-two-points
   (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)

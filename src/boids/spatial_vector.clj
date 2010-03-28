@@ -9,6 +9,7 @@
 
 (defn sv-sum 
   ([] (struct-map spatial-vector :x 0 :y 0))
+  ([p1] p1)
   ([p1 p2] 
      (struct-map spatial-vector 
        :x (+ (:x p1) (:x p2)) 
@@ -24,6 +25,7 @@
 
 (defn sv-diff 
   ([] (struct-map spatial-vector :x 0 :y 0))
+  ([p1] p1)
   ([p1 p2] 
      (struct-map spatial-vector 
        :x (- (:x p1) (:x p2)) 
