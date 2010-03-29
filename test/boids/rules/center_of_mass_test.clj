@@ -25,6 +25,5 @@
 ;; to be namespace qualified since I'm currently in a different namespace than 
 ;; boids.rules.center-of-mass.  I guess the :use just imports everything into the current namespace?
 (deftest test-should-correctly-calculate-center-of-mass-adjustment
-  (binding [center-of-mass-adjustment-factor 1000.0]
-    (is (= (center-of-mass-adjustment b2 (initial-boid-space))
-	   (struct-map spatial-vector :x -8.333333333333334E-4 :y 0.0035)))))
+  (is (= (center-of-mass-adjustment b2 (initial-boid-space))
+	 (struct-map spatial-vector :x -0.8333333333333334 :y 3.5))))

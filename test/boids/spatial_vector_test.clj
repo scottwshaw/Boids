@@ -38,9 +38,9 @@
   (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)]
     (is (= (sv-div sv1 2.0) (struct-map spatial-vector :x 0.75 :y 1.0)))))
 
-(deftest test-should-correctly-multiply
+(deftest test-should-correctly-multiply-factor-first
   (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)]
-    (is (=  (sv-mul sv1 2.0) (struct-map spatial-vector :x 3.0 :y 4.0)))))
+    (is (=  (sv-mul 2.0 sv1) (struct-map spatial-vector :x 3.0 :y 4.0)))))
 
 (deftest test-should-correctly-subtract-one-point
   (let [sv1 (struct-map spatial-vector :x 1.5 :y 2.0)]
