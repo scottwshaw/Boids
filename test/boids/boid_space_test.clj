@@ -75,6 +75,10 @@
 		   :velocity (struct-map spatial-vector :x 0.0 :y 0.0))]
     (is (some #(= new-boid %) (:boids (add-boid-to new-boid space))))))
     
+(deftest should-move-boids-and-return-new-space
+  (let [bs initial-boid-space
+	new-space (move-all-boids-one-step bs)]
+    (is (= new-space (struct boid-space 0.0 0.0 0.0 0.0 [])))))
 
 
 

@@ -6,8 +6,6 @@
    (java.awt.image BufferedImage)
    (javax.swing JPanel)))
 
-(def red (new Color 255 0 0 255))
-
 (defn bpanel [bspace]
   (let [d (new Dimension (- (:xmax bspace) (:xmin bspace)) (- (:ymax bspace) (:ymin bspace)))]
     (doto (proxy [JPanel] []) (.setPreferredSize d))))

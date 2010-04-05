@@ -1,5 +1,6 @@
 (ns boids.boid-space
-  (:use boids.boid boids.spatial-vector))
+  (:use boids.boid
+	boids.spatial-vector))
 
 (defstruct boid-space :xmin :xmax :ymin :ymax :boids)
 
@@ -25,4 +26,15 @@
       :ymin (:ymin s) 
       :ymax (:ymax s) 
       :boids new-boids)))
+
+(defn move-all-boids-one-step [bspace]
+  (struct boid-space 0.0 0.0 0.0 0.0 []))
+;  (let [new-boids (for [b (:boids bspace)] (move-boid-one-step b bspace))]
+;    (struct-map boid-space 
+;      :xmin (:xmin bspace) 
+;      :xmax (:xmax bspace) 
+;      :ymin (:ymin bspace) 
+;      :ymax (:ymax bspace) 
+;      :boids new-boids)))
+
 

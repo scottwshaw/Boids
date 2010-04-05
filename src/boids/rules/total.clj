@@ -15,4 +15,4 @@
 	v (sv-mul velocity-adjustment-factor (velocity-adjustment the-boid bspace))
 	a (sv-mul avoidance-adjustment-factor (avoidance-adjustment the-boid bspace))
 	b (sv-mul bounds-adjustment-factor (bounds-adjustment the-boid bspace))]
-    (sv-sum c v a b)))
+    (sv-sum c v a b (:velocity the-boid))))
