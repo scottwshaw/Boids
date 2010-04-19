@@ -1,7 +1,8 @@
 (ns boids.rules.bounds-test
   (:use clojure.test 
 	boids.boid 
-	boids.boid-space-test
+	boids.boid-test
+	boids.bounds
 	boids.rules.bounds
 	boids.spatial-vector))
 
@@ -9,7 +10,7 @@
   (let [loc (struct spatial-vector -11.0 6.0)
 	the-boid (struct-map boid :location loc)
 	expected-adjustment (struct spatial-vector 1.0 0.0)]
-    (is (= (bounds-adjustment the-boid (initial-boid-space)) expected-adjustment))))
+    (is (= (bounds-adjustment the-boid) expected-adjustment))))
 
 (deftest test-should-turn-boid-down-at-top-edge
   (let [loc (struct spatial-vector 0.0 21.0)
