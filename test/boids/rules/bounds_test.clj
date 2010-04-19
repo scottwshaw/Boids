@@ -1,6 +1,6 @@
 (ns boids.rules.bounds-test
-  (:use clojure.test 
-	boids.boid 
+  (:use clojure.test
+	boids.boid
 	boids.boid-test
 	boids.bounds-test
 	boids.rules.bounds
