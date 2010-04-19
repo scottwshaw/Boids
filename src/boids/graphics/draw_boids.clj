@@ -1,4 +1,4 @@
-(ns boids.graphics.draw-boid-space
+(ns boids.graphics.draw-boids
   (:use boids.spatial-vector)
   (:import 
    (java.awt Dimension)
@@ -17,7 +17,7 @@
       (.setColor (. Color red))
       (.drawLine (:x p0) (:y p0) (:x p1) (:y p1)))))
 
-(defn render-boid-space [bounds boids g]
+(defn render-boids [bounds boids g]
   (let [xdim (- (:xmax bounds) (:xmin bounds))
 	ydim (- (:ymax bounds) (:ymin bounds))
 	img (new BufferedImage xdim ydim (. BufferedImage TYPE_INT_ARGB))

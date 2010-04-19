@@ -1,8 +1,8 @@
-(ns boids.graphics.draw-boid-space-test
+(ns boids.graphics.draw-boids-test
   (:use clojure.test
 	boids.boid
 	boids.bounds
-	boids.graphics.draw-boid-space
+	boids.graphics.draw-boids
 	boids.spatial-vector)
   (:import  (java.awt Dimension)
 	    (javax.swing JFrame)
@@ -23,7 +23,8 @@
   (let [d (new Dimension 
 	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
-	p (doto (proxy [JPanel] [] (paint [g] (render-boid db1 drawable-bounds g))) (.setPreferredSize d))
+	p (doto (proxy [JPanel] [] 
+		  (paint [g] (render-boid db1 drawable-bounds g))) (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
     (. Thread (sleep 500))
     (. f (dispose))))
@@ -33,7 +34,7 @@
 	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
 	p (doto (proxy [JPanel] [] 
-		  (paint [g] (render-boid-space drawable-bounds drawable-boids g)))
+		  (paint [g] (render-boids drawable-bounds drawable-boids g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
     (. Thread (sleep 500))
