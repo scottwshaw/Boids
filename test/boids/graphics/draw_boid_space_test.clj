@@ -1,8 +1,7 @@
 (ns boids.graphics.draw-boid-space-test
   (:use clojure.test
 	boids.boid
-	boids.boid-space
-	boids.boid-space-test
+	boids.bounds
 	boids.graphics.draw-boid-space
 	boids.spatial-vector)
   (:import  (java.awt Dimension)
@@ -17,31 +16,38 @@
 (def db3 (new-boid 150 250 5 4))
 (def db4 (new-boid 10 300 15 10))
 
-(def drawable-boid-space (struct boid-space 0 500 0 500 [db1 db2 db3 db4]))
+(def drawable-bounds (struct bounds 0 500 0 500))
+(def drawable-boids [db1 db2 db3 db4])
 
 (deftest test-should-render-single-boid
   (let [d (new Dimension 
-	       (- (:xmax drawable-boid-space) (:xmin drawable-boid-space)) 
-	       (- (:ymax drawable-boid-space) (:ymin drawable-boid-space)))
-	p (doto (proxy [JPanel] [] (paint [g] (render-boid db1 drawable-boid-space g))) (.setPreferredSize d))
+	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
+	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
+	p (doto (proxy [JPanel] [] (paint [g] (render-boid db1 drawable-bounds g))) (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
     (. Thread (sleep 500))
     (. f (dispose))))
 
 (deftest test-should-render-boid-space
   (let [d (new Dimension
-	       (- (:xmax drawable-boid-space) (:xmin drawable-boid-space)) 
-	       (- (:ymax drawable-boid-space) (:ymin drawable-boid-space)))
-	p (doto (proxy [JPanel] [] (paint [g] (render-boid-space drawable-boid-space g))) (.setPreferredSize d))
+	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
+	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
+	p (doto (proxy [JPanel] [] 
+		  (paint [g] (render-boid-space drawable-bounds drawable-boids g)))
+	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
     (. Thread (sleep 500))
     (. f (dispose))))
 
 (deftest test-should-create-panel-with-correct-size
-  (let [b drawable-boid-space
-	p (bpanel b)
-	d (.getPreferredSize p)]
-    (is (= d (new Dimension (- (:xmax b) (:xmin b)) (- (:ymax b) (:ymin b)))))))
+  (let [p (bpanel drawable-bounds) d (.getPreferredSize p)]
+    (is (= d (new Dimension 
+		  (- 
+		   (:xmax drawable-bounds) 
+		   (:xmin drawable-bounds)) 
+		  (- 
+		   (:ymax drawable-bounds)
+		   (:ymin drawable-bounds)))))))
 
 ;(deftest test-should-create-a-frame-with-embedded-panel
 ;  (let [f (doto (new JFrame) (.add (bpanel drawable-boid-space)) .pack .show)]
