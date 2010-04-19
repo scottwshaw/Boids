@@ -11,7 +11,7 @@
 (def bounds-adjustment-factor 1.0)
 
 (defn total-adjustment [the-boid bspace]
-  (let [c (sv-mul center-of-mass-adjustment-factor (center-of-mass-adjustment the-boid bspace))
+  (let [c (sv-mul center-of-mass-adjustment-factor (center-of-mass-adjustment the-boid (:boids bspace)))
 	v (sv-mul velocity-adjustment-factor (velocity-adjustment the-boid bspace))
 	a (sv-mul avoidance-adjustment-factor (avoidance-adjustment the-boid bspace))
 	b (sv-mul bounds-adjustment-factor (bounds-adjustment the-boid bspace))]

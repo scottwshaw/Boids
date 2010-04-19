@@ -1,12 +1,12 @@
 (ns boids.rules.center-of-mass-test
   (:use clojure.test 
-	boids.boid 
-	boids.boid-space-test
+	boids.boid
+	boids.boid-test
 	boids.rules.center-of-mass 
 	boids.spatial-vector))
 
 ; x = -.5, y = 3.1666666
-(deftest test-should-correctly-calculate-center-of-mass-on-list-of-boids
+(deftest should-correctly-calculate-center-of-mass-on-list-of-boids
   (let [the-boids [b2 b3 b4]]
     (is (<= 3.16665 (:y (center-of-mass the-boids)) 3.16667))
     (is (>= -0.49999 (:x (center-of-mass the-boids)) -0.50001))))
@@ -25,5 +25,5 @@
 ;; to be namespace qualified since I'm currently in a different namespace than 
 ;; boids.rules.center-of-mass.  I guess the :use just imports everything into the current namespace?
 (deftest test-should-correctly-calculate-center-of-mass-adjustment
-  (is (= (center-of-mass-adjustment b2 (initial-boid-space))
+  (is (= (center-of-mass-adjustment b2 initial-boid-list)
 	 (struct-map spatial-vector :x -0.8333333333333334 :y 3.5))))

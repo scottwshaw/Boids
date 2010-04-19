@@ -9,6 +9,6 @@
   (let [the-other-boids (remove #(= to-exclude %) the-boids)]
     (sv-div (apply sv-sum (map :location the-other-boids)) (.length (vec the-other-boids)))))
 
-(defn center-of-mass-adjustment [this-boid bspace] 
-  (center-of-mass-exclusive-of (:boids bspace) this-boid))
+(defn center-of-mass-adjustment [this-boid blist] 
+  (center-of-mass-exclusive-of blist this-boid))
   
