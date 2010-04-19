@@ -29,7 +29,7 @@
     (. Thread (sleep 500))
     (. f (dispose))))
 
-(deftest test-should-render-boid-space
+(deftest should-render-boids
   (let [d (new Dimension
 	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
@@ -51,7 +51,7 @@
 		   (:ymin drawable-bounds)))))))
 
 ;(deftest test-should-create-a-frame-with-embedded-panel
-;  (let [f (doto (new JFrame) (.add (bpanel drawable-boid-space)) .pack .show)]
+;  (let [f (doto (new JFrame) (.add (bpanel drawable-boids)) .pack .show)]
 ;    (. Thread (sleep 1000))
 ;    (. f (dispose))))
 

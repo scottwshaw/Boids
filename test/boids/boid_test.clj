@@ -40,3 +40,11 @@
 ;	   (struct boid 
 ;		   (struct spatial-vector -4.751250000000001 10.77875)
 ;		   (struct spatial-vector 1.7487499999999998 4.7787500000000005))))))
+
+;(deftest should-move-boids-and-return-new-space
+;  (let [bs initial-boid-space
+;	new-space (move-all-boids-one-step bs)
+;	expected-boid (struct boid 
+;			      (struct spatial-vector -4.751250000000001 10.77875)
+;			      (struct spatial-vector 1.7487499999999998 4.7787500000000005))]
+;    (is (some #(= expected-boid %) (:boids new-space)))))
