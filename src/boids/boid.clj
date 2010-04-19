@@ -4,7 +4,7 @@
 
 (defstruct boid :location :velocity)
 
-(defn move-boid-one-step [the-boid bspace]
-  (let [adjustment (total-adjustment the-boid bspace)]
+(defn move-boid-one-step [the-boid all-boids the-bounds]
+  (let [adjustment (total-adjustment the-boid all-boids the-bounds)]
     (struct boid (sv-sum (:location the-boid) adjustment) adjustment)))
 	  

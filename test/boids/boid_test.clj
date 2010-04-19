@@ -1,6 +1,7 @@
 (ns boids.boid-test
   (:use clojure.test 
 	boids.boid 
+	boids.bounds
 	boids.spatial-vector))
 
 (def b1 (struct-map boid
@@ -31,15 +32,16 @@
 
 (def initial-boid-list [b1 b2 b3 b4])
 
-;(deftest should-move-boid-one-step
-;  (let [loc (struct spatial-vector -6.5 6.0)
-;	vel (struct spatial-vector -1.0 2.0)
-;	the-boid (struct-map boid :location loc :velocity vel)
-;	bspace (struct-map boid-space :xmin -6 :xmax 10 :ymin 0 :ymax 20 :boids [b1 b2 b3 b4])]
-;    (is (= (move-boid-one-step the-boid bspace) 
-;	   (struct boid 
-;		   (struct spatial-vector -4.751250000000001 10.77875)
-;		   (struct spatial-vector 1.7487499999999998 4.7787500000000005))))))
+(deftest should-move-boid-one-step
+  (let [loc (struct spatial-vector -6.5 6.0)
+	vel (struct spatial-vector -1.0 2.0)
+	the-boid (struct-map boid :location loc :velocity vel)
+	the-bounds (struct-map bounds :xmin -6 :xmax 10 :ymin 0 :ymax 20)
+	all-boids [b1 b2 b3 b4]]
+    (is (= (move-boid-one-step the-boid all-boids the-bounds)
+	   (struct boid 
+		   (struct spatial-vector -4.751250000000001 10.77875)
+		   (struct spatial-vector 1.7487499999999998 4.7787500000000005))))))
 
 ;(deftest should-move-boids-and-return-new-space
 ;  (let [bs initial-boid-space
