@@ -17,6 +17,7 @@
       (.setColor (. Color red))
       (.drawLine (:x p0) (:y p0) (:x p1) (:y p1)))))
 
+;; expects boids to be in the form of an atom
 (defn render-boids [bounds boids g]
   (let [xdim (- (:xmax bounds) (:xmin bounds))
 	ydim (- (:ymax bounds) (:ymin bounds))
@@ -25,7 +26,7 @@
     (doto bg
       (.setColor (. Color white))
       (.fillRect 0 0 (. img (getWidth)) (. img (getHeight))))
-    (dorun (map #(draw-boid % bg) boids))
+    (dorun (map #(draw-boid % bg) @boids))
     (. g (drawImage img 0 0 nil))
     (. bg (dispose))))
 

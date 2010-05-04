@@ -17,7 +17,7 @@
 (def db4 (new-boid 10 300 15 10))
 
 (def drawable-bounds (struct bounds 0 500 0 500))
-(def drawable-boids [db1 db2 db3 db4])
+(def drawable-boids (atom [db1 db2 db3 db4]))
 
 (deftest test-should-render-single-boid
   (let [d (new Dimension 
@@ -38,6 +38,20 @@
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
     (. Thread (sleep 500))
+    (. f (dispose))))
+
+(deftest should-render-frame-sequence
+  (let [d (new Dimension
+	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
+	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
+	p (doto (proxy [JPanel] [] 
+		  (paint [g] (render-boids drawable-bounds drawable-boids g)))
+	    (.setPreferredSize d))
+	f (doto (new JFrame) (.add p) .pack .show)]
+    (dotimes [nframes 10]
+      (swap! drawable-boids move-all-boids-one-step drawable-bounds)
+      (. p (repaint))
+      (. Thread (sleep 500)))
     (. f (dispose))))
 
 (deftest test-should-create-panel-with-correct-size
