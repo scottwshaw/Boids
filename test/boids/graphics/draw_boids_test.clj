@@ -51,7 +51,7 @@
     (dotimes [nframes 10]
       (swap! drawable-boids move-all-boids-one-step drawable-bounds)
       (. p (repaint))
-      (. Thread (sleep 500)))
+      (. Thread (sleep 1000)))
     (. f (dispose))))
 
 (deftest test-should-create-panel-with-correct-size
