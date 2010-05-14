@@ -3,6 +3,7 @@
 	boids.boid
 	boids.bounds
 	boids.graphics.draw-boids
+	boids.rules.total
 	boids.spatial-vector)
   (:import  (java.awt Dimension)
 	    (javax.swing JFrame)
@@ -40,7 +41,7 @@
     (. Thread (sleep 500))
     (. f (dispose))))
 
-(deftest should-render-frame-sequence
+(defn render-frame-sequence []
   (let [d (new Dimension
 	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
@@ -50,9 +51,16 @@
 	f (doto (new JFrame) (.add p) .pack .show)]
     (dotimes [nframes 10]
       (swap! drawable-boids move-all-boids-one-step drawable-bounds)
-      (. p (repaint))
-      (. Thread (sleep 1000)))
+      (. Thread (sleep 500))
+      (. p (repaint)))
     (. f (dispose))))
+
+(deftest should-render-frame-sequence 
+  (render-frame-sequence))
+
+;(deftest should-render-frame-sequence-with-overidden-values
+;  (binding [*velocity-weight* 0.01]
+;    (render-frame-sequence)))
 
 (deftest test-should-create-panel-with-correct-size
   (let [p (bpanel drawable-bounds) d (.getPreferredSize p)]
