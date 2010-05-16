@@ -3,6 +3,7 @@
 	boids.boid
 	boids.bounds
 	boids.graphics.draw-boids
+	boids.random
 	boids.rules.total
 	boids.spatial-vector)
   (:import  (java.awt Dimension)
@@ -52,22 +53,32 @@
       (. p (repaint)))
     (. f (dispose))))
 
-(defn render-and-move [g]
+(defn render-boids-and-move [boids-a g]
   (binding [*velocity-weight* 0.01
 	    *bounds-radius* 100
 	    *bounds-weight* 20
 	    *avoidance-radius* 10.0
 	    *center-of-mass-weight* 0.008
 	    *avoidance-weight* 2.0]
-    (render-boids drawable-bounds drawable-boids g)
-    (swap! drawable-boids move-all-boids-one-step drawable-bounds)))
+    (render-boids drawable-bounds boids-a g)
+    (swap! boids-a move-all-boids-one-step drawable-bounds)))
+
+(defn render-boids-and-move [boids-a g]
+  (binding [*velocity-weight* 0.01
+	    *bounds-radius* 100
+	    *bounds-weight* 20
+	    *avoidance-radius* 10.0
+	    *center-of-mass-weight* 0.008
+	    *avoidance-weight* 2.0]
+    (render-boids drawable-bounds boids-a g)
+    (swap! boids-a move-all-boids-one-step drawable-bounds)))
 
 (defn render-frame-sequence-with-overrides []
   (let [d (new Dimension
 	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
 	p (doto (proxy [JPanel] [] 
-		  (paint [g] (render-and-move g)))
+		  (paint [g] (render-boids-and-move drawable-boids g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
     (dotimes [nframes 10]
@@ -75,8 +86,22 @@
       (. p (repaint)))
     (. f (dispose))))
 
+(defn render-random-frame-sequence-with-overrides []
+  (let [d (new Dimension
+	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
+	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
+	boids-a (atom (random-boids 10 drawable-bounds 5.0))
+	p (doto (proxy [JPanel] [] 
+		  (paint [g] (render-boids-and-move boids-a g)))
+	    (.setPreferredSize d))
+	f (doto (new JFrame) (.add p) .pack .show)]
+    (dotimes [nframes 500]
+      (. Thread (sleep 100))
+      (. p (repaint)))
+    (. f (dispose))))
+
 (deftest should-render-frame-sequence 
-  (render-frame-sequence-with-overrides))
+  (render-random-frame-sequence-with-overrides))
 
 (deftest test-should-create-panel-with-correct-size
   (let [p (bpanel drawable-bounds) d (.getPreferredSize p)]
