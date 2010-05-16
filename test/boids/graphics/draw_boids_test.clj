@@ -64,6 +64,7 @@
 			 (binding [*velocity-weight* 0.01
 				   *center-of-mass-weight* 0.005
 				   *avoidance-weight* 1.0
+				   *bounds-radius* 10.0
 				   *bounds-weight* 10.0]
 			   (render-boids drawable-bounds drawable-boids g))))
 	    (.setPreferredSize d))
