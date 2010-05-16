@@ -58,7 +58,8 @@
 (defn render-and-move [g]
   (binding [*velocity-weight* 0.01
 	    *bounds-radius* 100
-	    *bounds-weight* 10]
+	    *bounds-weight* 10
+	    *avoidance-radius* 10.0]
     (render-boids drawable-bounds drawable-boids g)
     (swap! drawable-boids move-all-boids-one-step drawable-bounds)))
 
