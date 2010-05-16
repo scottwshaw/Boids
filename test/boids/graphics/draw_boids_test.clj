@@ -55,18 +55,22 @@
       (. p (repaint)))
     (. f (dispose))))
 
+(defn render-and-move [g]
+  (binding [*velocity-weight* 0.01
+	    *bounds-radius* 100
+	    *bounds-weight* 10]
+    (render-boids drawable-bounds drawable-boids g)
+    (swap! drawable-boids move-all-boids-one-step drawable-bounds)))
+
 (defn render-frame-sequence-with-overrides []
   (let [d (new Dimension
 	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
 	p (doto (proxy [JPanel] [] 
-		  (paint [g] (render-boids drawable-bounds drawable-boids g)))
+		  (paint [g] (render-and-move g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
-    (dotimes [nframes 50]
-      (binding [*velocity-weight* 0.01
-		*bounds-weight* 10.0]
-	(swap! drawable-boids move-all-boids-one-step drawable-bounds))
+    (dotimes [nframes 200]
       (. Thread (sleep 100))
       (. p (repaint)))
     (. f (dispose))))
