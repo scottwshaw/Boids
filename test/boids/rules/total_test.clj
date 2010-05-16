@@ -32,7 +32,8 @@
 	the-boid (struct-map boid :location loc :velocity vel)
 	all-boids [b1 b2 b3 b4]
 	the-bounds (struct bounds -6 10 0 20)]
-    (is (= (total-adjustment the-boid all-boids the-bounds) (struct spatial-vector 1.7487499999999998 4.7787500000000005)))))
+    (is (= (total-adjustment the-boid all-boids the-bounds) 
+	   (struct spatial-vector 1.7487499999999998 4.7787500000000005)))))
 
 (deftest should-compute-correct-adjustment-out-of-bounds-weighted
   (binding [*bounds-weight* 0.1]

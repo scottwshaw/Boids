@@ -4,6 +4,9 @@
 
 (defstruct boid :location :velocity)
 
+(defn new-boid [x y vx vy]
+  (struct boid (struct spatial-vector x y) (struct spatial-vector vx vy)))
+
 (defn move-boid-one-step [the-boid all-boids the-bounds]
   (let [adjustment (total-adjustment the-boid all-boids the-bounds)]
     (struct boid (sv-sum (:location the-boid) adjustment) adjustment)))

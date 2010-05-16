@@ -9,15 +9,12 @@
 	    (javax.swing JFrame)
 	    (javax.swing JPanel)))
 
-(defn new-boid [x y vx vy]
-  (struct boid (struct spatial-vector x y) (struct spatial-vector vx vy)))
-
 (def db1 (new-boid 100 200 4 2))
 (def db2 (new-boid 200 100 3 5))
 (def db3 (new-boid 150 250 5 4))
 (def db4 (new-boid 10 300 15 10))
 
-(def drawable-bounds (struct bounds 0 500 0 500))
+(def drawable-bounds (struct bounds 0 1000 0 750))
 (def drawable-boids (atom [db1 db2 db3 db4]))
 
 (deftest test-should-render-single-boid
@@ -58,8 +55,10 @@
 (defn render-and-move [g]
   (binding [*velocity-weight* 0.01
 	    *bounds-radius* 100
-	    *bounds-weight* 10
-	    *avoidance-radius* 10.0]
+	    *bounds-weight* 20
+	    *avoidance-radius* 10.0
+	    *center-of-mass-weight* 0.008
+	    *avoidance-weight* 2.0]
     (render-boids drawable-bounds drawable-boids g)
     (swap! drawable-boids move-all-boids-one-step drawable-bounds)))
 
@@ -71,7 +70,7 @@
 		  (paint [g] (render-and-move g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
-    (dotimes [nframes 200]
+    (dotimes [nframes 10]
       (. Thread (sleep 100))
       (. p (repaint)))
     (. f (dispose))))
