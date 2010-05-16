@@ -49,9 +49,9 @@
 		  (paint [g] (render-boids drawable-bounds drawable-boids g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
-    (dotimes [nframes 10]
+    (dotimes [nframes 50]
       (swap! drawable-boids move-all-boids-one-step drawable-bounds)
-      (. Thread (sleep 500))
+      (. Thread (sleep 100))
       (. p (repaint)))
     (. f (dispose))))
 
@@ -60,17 +60,13 @@
 	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
 	p (doto (proxy [JPanel] [] 
-		  (paint [g] 
-			 (binding [*velocity-weight* 0.01
-				   *center-of-mass-weight* 0.005
-				   *avoidance-weight* 1.0
-				   *bounds-radius* 10.0
-				   *bounds-weight* 10.0]
-			   (render-boids drawable-bounds drawable-boids g))))
+		  (paint [g] (render-boids drawable-bounds drawable-boids g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
-    (dotimes [nframes 100]
-      (swap! drawable-boids move-all-boids-one-step drawable-bounds)
+    (dotimes [nframes 50]
+      (binding [*velocity-weight* 0.01
+		*bounds-weight* 10.0]
+	(swap! drawable-boids move-all-boids-one-step drawable-bounds))
       (. Thread (sleep 100))
       (. p (repaint)))
     (. f (dispose))))
