@@ -23,5 +23,5 @@
     (is (not (nil? (some #(identical? b3 %) nearby-boids))))))
 
 (deftest test-should-move-away-from-other-boid
-  (is (= (struct-map spatial-vector :x 1.5 :y -2.5) (avoidance-adjustment b2 initial-boid-list))))
+  (is (= (struct-map spatial-vector :x 1.5 :y -2.5) (avoidance-adjustment b2 initial-boid-list 2.0))))
     

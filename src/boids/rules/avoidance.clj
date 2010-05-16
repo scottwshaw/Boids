@@ -1,12 +1,10 @@
 (ns boids.rules.avoidance
   (:use boids.boid boids.spatial-vector))
 
-(def avoidance-radius 2.0)
-
 (defn boids-in-radius [blist point radius]
   (filter #(<= (distance-between point (:location %)) radius) blist))
 
-(defn avoidance-adjustment [the-boid blist] 
+(defn avoidance-adjustment [the-boid blist avoidance-radius] 
   (let [the-point (:location the-boid)
 	points-to-avoid	(map :location
 			     (remove #(= the-boid %) 
