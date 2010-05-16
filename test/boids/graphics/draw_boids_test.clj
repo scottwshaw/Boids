@@ -55,12 +55,24 @@
       (. p (repaint)))
     (. f (dispose))))
 
-(deftest should-render-frame-sequence 
-  (render-frame-sequence))
+(defn render-frame-sequence-with-overrides []
+  (let [d (new Dimension
+	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
+	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
+	p (doto (proxy [JPanel] [] 
+		  (paint [g] 
+			 (binding [*velocity-weight* 0.01]
+			   (render-boids drawable-bounds drawable-boids g))))
+	    (.setPreferredSize d))
+	f (doto (new JFrame) (.add p) .pack .show)]
+    (dotimes [nframes 10]
+      (swap! drawable-boids move-all-boids-one-step drawable-bounds)
+      (. Thread (sleep 500))
+      (. p (repaint)))
+    (. f (dispose))))
 
-;(deftest should-render-frame-sequence-with-overidden-values
-;  (binding [*velocity-weight* 0.01]
-;    (render-frame-sequence)))
+(deftest should-render-frame-sequence 
+  (render-frame-sequence-with-overrides))
 
 (deftest test-should-create-panel-with-correct-size
   (let [p (bpanel drawable-bounds) d (.getPreferredSize p)]
