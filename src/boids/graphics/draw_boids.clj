@@ -10,9 +10,14 @@
   (let [d (new Dimension (- (:xmax bounds) (:xmin bounds)) (- (:ymax bounds) (:ymin bounds)))]
     (doto (proxy [JPanel] []) (.setPreferredSize d))))
 
-(defn draw-boid [b g]
-  (let [p0 (sv-diff (:location b) (:velocity b))
-	p1 (sv-sum (:location b) (:velocity b))]
+(defn- translate-location [the-boid the-bounds]
+  (let [p0 (struct spatial-vector (:xmin the-bounds) (:ymin the-bounds))]
+    (sv-diff (:location the-boid) p0)))
+	
+(defn- draw-boid [b bnds g]
+  (let [t (translate-location b bnds)
+	p0 (sv-diff t (:velocity b))
+	p1 (sv-sum t (:velocity b))]
     (doto g
       (.setColor (. Color red))
       (.drawLine (:x p0) (:y p0) (:x p1) (:y p1)))))
@@ -26,7 +31,7 @@
     (doto bg
       (.setColor (. Color white))
       (.fillRect 0 0 (. img (getWidth)) (. img (getHeight))))
-    (dorun (map #(draw-boid % bg) @boids))
+    (dorun (map #(draw-boid % bounds bg) @boids))
     (. g (drawImage img 0 0 nil))
     (. bg (dispose))))
 
@@ -34,4 +39,4 @@
   (doto g
     (.setColor (. Color white))
     (.fillRect 0 0 (- (:xmax bounds) (:xmin bounds)) (- (:ymax bounds) (:ymin bounds))))
-  (draw-boid b g))
+  (draw-boid b bounds g))
