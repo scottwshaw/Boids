@@ -13,11 +13,11 @@
 (def drawable-bounds (struct bounds -500 500 -350 350))
 
 (defn- render-boids-and-move [boids-a g]
-  (binding [*velocity-weight* 0.05
+  (binding [*velocity-weight* 0.125
 	    *bounds-radius* 100
-	    *bounds-weight* 2
+	    *bounds-weight* 8
 	    *avoidance-radius* 30.0
-	    *center-of-mass-weight* 0.01
+	    *center-of-mass-weight* 0.001
 	    *avoidance-weight* 0.1]
     (render-boids drawable-bounds boids-a g)
     (swap! boids-a move-all-boids-one-step drawable-bounds)))
@@ -26,7 +26,7 @@
   (let [d (new Dimension
 	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
-	boids-a (atom (random-boids 10 drawable-bounds 5.0))
+	boids-a (atom (random-boids 50 drawable-bounds 5.0))
 	p (doto (proxy [JPanel] [] 
 		  (paint [g] (render-boids-and-move boids-a g)))
 	    (.setPreferredSize d))
