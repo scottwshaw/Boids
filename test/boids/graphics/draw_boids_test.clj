@@ -15,10 +15,10 @@
 (defn- render-boids-and-move [boids-a g]
   (binding [*velocity-weight* 0.05
 	    *bounds-radius* 100
-	    *bounds-weight* 20
-	    *avoidance-radius* 10.0
+	    *bounds-weight* 2
+	    *avoidance-radius* 30.0
 	    *center-of-mass-weight* 0.01
-	    *avoidance-weight* 2.0]
+	    *avoidance-weight* 0.1]
     (render-boids drawable-bounds boids-a g)
     (swap! boids-a move-all-boids-one-step drawable-bounds)))
 

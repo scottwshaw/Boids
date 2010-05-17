@@ -7,4 +7,4 @@
 
 ;; send with a tolerance of 0.0 so all boids are updated
 (deftest test-should-match-velocities-of-other-boids
-  (is (= (struct-map spatial-vector :x 3.3333333333333335 :y 2.0) (velocity-adjustment b2 initial-boid-list 0.0))))
+  (is (= (struct-map spatial-vector :x 0.3333333333333335 :y -3.0) (velocity-adjustment b2 initial-boid-list))))
