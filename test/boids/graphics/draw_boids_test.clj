@@ -17,7 +17,7 @@
 	    *bounds-radius* 100
 	    *bounds-weight* 20
 	    *avoidance-radius* 10.0
-	    *center-of-mass-weight* 0.008
+	    *center-of-mass-weight* 0.01
 	    *avoidance-weight* 2.0]
     (render-boids drawable-bounds boids-a g)
     (swap! boids-a move-all-boids-one-step drawable-bounds)))
@@ -31,7 +31,7 @@
 		  (paint [g] (render-boids-and-move boids-a g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
-    (dotimes [nframes 500]
+    (dotimes [nframes 50]
       (. Thread (sleep 100))
       (. p (repaint)))
     (. f (dispose))))

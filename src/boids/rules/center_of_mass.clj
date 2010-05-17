@@ -1,7 +1,6 @@
 (ns boids.rules.center-of-mass 
   (:use boids.boid boids.spatial-vector))
 
-;; I'm assuming this will be defined globally or bound in a thread-local way 
 (defn center-of-mass [the-boids]
   (sv-div (apply sv-sum (map :location the-boids)) (.length the-boids)))
 
@@ -9,6 +8,6 @@
   (let [the-other-boids (remove #(= to-exclude %) the-boids)]
     (sv-div (apply sv-sum (map :location the-other-boids)) (.length (vec the-other-boids)))))
 
-(defn center-of-mass-adjustment [this-boid blist] 
-  (center-of-mass-exclusive-of blist this-boid))
+(defn center-of-mass-adjustment [this-boid blist]
+  (sv-diff (center-of-mass-exclusive-of blist this-boid) (:location this-boid)))
   
