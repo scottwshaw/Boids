@@ -13,7 +13,7 @@
 (def drawable-bounds (struct bounds -500 500 -350 350))
 
 (defn- render-boids-and-move [boids-a g]
-  (binding [*velocity-weight* 0.1
+  (binding [*velocity-weight* 0.05
 	    *bounds-radius* 100
 	    *bounds-weight* 20
 	    *avoidance-radius* 10.0
@@ -31,7 +31,7 @@
 		  (paint [g] (render-boids-and-move boids-a g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
-    (dotimes [nframes 50]
+    (dotimes [nframes 250]
       (. Thread (sleep 100))
       (. p (repaint)))
     (. f (dispose))))
