@@ -14,8 +14,8 @@
 
 (defn- render-boids-and-move [boids-a g]
   (binding [*velocity-weight* 0.125
-	    *bounds-radius* 100
-	    *bounds-weight* 8
+	    *bounds-radius* 20
+	    *bounds-weight* 0.8
 	    *avoidance-radius* 30.0
 	    *center-of-mass-weight* 0.001
 	    *avoidance-weight* 0.1]
@@ -26,13 +26,13 @@
   (let [d (new Dimension
 	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
-	boids-a (atom (random-boids 50 drawable-bounds 5.0))
+	boids-a (atom (random-boids 50 drawable-bounds 10.0))
 	p (doto (proxy [JPanel] [] 
 		  (paint [g] (render-boids-and-move boids-a g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
-    (dotimes [nframes 250]
-      (. Thread (sleep 100))
+    (dotimes [nframes 500]
+      (. Thread (sleep 50))
       (. p (repaint)))
     (. f (dispose))))
 
