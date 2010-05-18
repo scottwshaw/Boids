@@ -36,10 +36,11 @@
 (deftest should-move-boid-one-step
   (let [loc (struct spatial-vector -6.5 6.0)
 	vel (struct spatial-vector -1.0 2.0)
+	the-goal (struct spatial-vector -3 5)
 	the-boid (struct-map boid :location loc :velocity vel)
 	the-bounds (struct-map bounds :xmin -6 :xmax 10 :ymin 0 :ymax 20)
 	all-boids [b1 b2 b3 b4]]
-    (is (= (move-boid-one-step the-boid all-boids the-bounds)
+    (is (= (move-boid-one-step the-boid all-boids the-bounds the-goal)
 	   {:location {:x -3.6862500000000002, :y 8.71875}, 
 	    :velocity {:x 2.8137499999999998, :y 2.71875}}))))
 
