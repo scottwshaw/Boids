@@ -40,9 +40,8 @@
 	the-bounds (struct-map bounds :xmin -6 :xmax 10 :ymin 0 :ymax 20)
 	all-boids [b1 b2 b3 b4]]
     (is (= (move-boid-one-step the-boid all-boids the-bounds)
-	   (struct boid 
-		   (struct spatial-vector -4.686249999999999 10.71875)
-		   (struct spatial-vector 1.8137500000000002 4.71875))))))
+	   {:location {:x -3.6862500000000002, :y 8.71875}, 
+	    :velocity {:x 2.8137499999999998, :y 2.71875}}))))
 
 (deftest should-move-boids
   (let [loc (struct spatial-vector -6.5 6.0)
@@ -50,9 +49,8 @@
 	the-bounds (struct-map bounds :xmin -6 :xmax 10 :ymin 0 :ymax 20)
 	the-boid (struct-map boid :location loc :velocity vel)
 	new-boids (move-all-boids-one-step [b1 b2 b3 b4 the-boid] initial-bounds)
-	expected-boid (struct boid 
-			      (struct spatial-vector -5.686249999999999 10.71875)
-			      (struct spatial-vector 0.8137500000000002 4.71875))]
+	expected-boid {:location {:x -4.68625, :y 8.71875}, 
+		       :velocity {:x 1.8137499999999998, :y 2.71875}}]
     (is (some #(= expected-boid %) new-boids))))
 
 (deftest should-move-boids-as-atom
@@ -62,14 +60,14 @@
 	the-boid (struct-map boid :location loc :velocity vel)
 	the-boids (atom [b1 b2 b3 b4 the-boid])
 	new-boids (move-all-boids-one-step @the-boids initial-bounds)
-	expected-boid (struct boid 
-			      (struct spatial-vector -5.686249999999999 10.71875)
-			      (struct spatial-vector  0.8137500000000002 4.71875))]
+	expected-boid {:location {:x -4.68625, :y 8.71875}, 
+		       :velocity {:x 1.8137499999999998, :y 2.71875}}]
     (is (some #(= expected-boid %) new-boids))))
 
 (deftest should-move-other-boids
   (let [the-bounds (struct-map bounds :xmin -6 :xmax 10 :ymin 0 :ymax 20)
 	new-boids (move-all-boids-one-step [b1 b2 b3 b4] the-bounds)
-	expected-boid {:location {:x 9.805, :y 5.525}, :velocity {:x 7.805, :y 4.525}}]
+	expected-boid {:location {:x 6.805, :y 0.5250000000000004},
+		       :velocity {:x 4.805, :y -0.47499999999999964}}]
     (is (= expected-boid (second new-boids)))))
 
