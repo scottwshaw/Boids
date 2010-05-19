@@ -42,7 +42,7 @@
 		  (paint [g] (render-boids-and-move boids-a {:x 100 :y 300} g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
-    (dotimes [nframes 500]
+    (dotimes [nframes 50]
       (. Thread (sleep 50))
       (. p (repaint)))
     (. f (dispose))))

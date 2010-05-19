@@ -26,15 +26,17 @@
 	the-boid (struct-map boid :location loc :velocity vel)
 	all-boids [b1 b2 b3 b4]
 	the-bounds (struct bounds -6 10 0 20)]
-    (is (= (total-adjustment the-boid all-boids the-bounds) 
-	   (struct spatial-vector 2.8137499999999998 2.71875)))))
+    (binding [*goal-weight* 1.0]
+      (is (= (total-adjustment the-boid all-boids the-bounds {:x -3 :y 5}) 
+	     (struct spatial-vector 6.31375 1.71875))))))
 
 (deftest should-compute-correct-adjustment-out-of-bounds-weighted
-  (binding [*bounds-weight* 0.1]
+  (binding [*bounds-weight* 0.1
+	    *goal-weight* 1.0]
     (let [loc (struct spatial-vector -6.5 6.0)
 	  vel (struct spatial-vector -1.0 2.0)
 	  the-boid (struct-map boid :location loc :velocity vel)
 	  all-boids [b1 b2 b3 b4]
 	  the-bounds (struct bounds -6 10 0 20)]
-      (is (= (total-adjustment the-boid all-boids the-bounds) 
-	     (struct spatial-vector 1.9137499999999998 2.71875))))))
+	(is (= (total-adjustment the-boid all-boids the-bounds {:x -3 :y 5}) 
+	       (struct spatial-vector 5.41375 1.71875))))))
