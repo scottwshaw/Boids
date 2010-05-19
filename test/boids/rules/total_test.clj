@@ -5,12 +5,11 @@
 	boids.bounds
 	boids.bounds-test
 	boids.rules.total
-
 	boids.spatial-vector))
 
 (deftest should-compute-correct-adjustment-in-bounds
-  (is (= (total-adjustment b2 [b1 b2 b3 b4] initial-bounds)
-	 (struct spatial-vector 4.805  -0.47499999999999964))))
+  (is (= (total-adjustment b2 [b1 b2 b3 b4] initial-bounds {:x -3 :y 5})
+	 (struct spatial-vector -0.19499999999999984  3.5250000000000004))))
 
 (deftest should-compute-correct-adjustment-with-weights
   (binding [*velocity-weight* 0.1

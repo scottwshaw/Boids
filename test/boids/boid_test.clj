@@ -41,8 +41,8 @@
 	the-bounds (struct-map bounds :xmin -6 :xmax 10 :ymin 0 :ymax 20)
 	all-boids [b1 b2 b3 b4]]
     (is (= (move-boid-one-step the-boid all-boids the-bounds the-goal)
-	   {:location {:x -3.6862500000000002, :y 8.71875}, 
-	    :velocity {:x 2.8137499999999998, :y 2.71875}}))))
+	   {:location {:x -0.18625000000000025, :y 7.71875}, 
+	    :velocity {:x 6.31375, :y 1.71875}}))))
 
 (deftest should-move-boids
   (let [loc (struct spatial-vector -6.5 6.0)

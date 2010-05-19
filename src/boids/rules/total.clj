@@ -10,7 +10,7 @@
 (def *velocity-weight* 1.0)
 (def *avoidance-weight* 1.0)
 (def *bounds-weight* 1.0)
-(def *goal-weight* 0.0)
+(def *goal-weight* 1.0)
 (def *bounds-radius* 0.0)
 (def *avoidance-radius* 2.0)
 
