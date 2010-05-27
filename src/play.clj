@@ -21,6 +21,12 @@
 ;; The functional form of the first try 
 (map (fn [a] (map (fn [b] (* a b)) (range a))) (range 5))
 
+
+;; Here's the correct end result done without the monand form.  It just
+;; applies concat to the outer function call.  It basically just calls
+;; (apply concat ...) on the list provided by the first try 
+(apply concat (map (fn [a] (map (fn [b] (* a b)) (range a))) (range 5)))
+
 ;; The functional form of the correct flat answer try
 ;; Note that concat has to be applied to both function bindings to simulate
 ;; the mbind form.  If you only had the outer concat without the list call
@@ -37,10 +43,12 @@
   (apply concat (map function sequence)))
 
 ;; The manual form using the m-bind function
-(m-bind-second-try (range 5)  (fn [a]
-				(m-bind-second-try (range a)  (fn [b]
+(m-bind-second-try (range 5)  
+		   (fn [a]
+		     (m-bind-second-try (range a)  
+					(fn [b] (list (* a b))))))
 
-;; Defining the monad								(list (* a b))))))
+;; Defining the monad	(list (* a b))))))
 (defmonad times-for-m 
   [m-result #(list %)
    m-bind m-bind-second-try])
