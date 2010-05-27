@@ -71,8 +71,9 @@
 ;; Just checking another set of values 
 (deftest should-move-other-boids
   (let [the-bounds (struct-map bounds :xmin -6 :xmax 10 :ymin 0 :ymax 20)
-	new-boids (move-all-boids-one-step [b1 b2 b3 b4] the-bounds)
-	expected-boid {:location {:x 6.805, :y 0.5250000000000004},
-		       :velocity {:x 4.805, :y -0.47499999999999964}}]
+	the-goal (struct spatial-vector -3 5)
+	new-boids (move-all-boids-one-step [b1 b2 b3 b4] the-bounds the-goal)
+	expected-boid {:location {:x 1.8050000000000002, :y 4.525}, 
+		       :velocity {:x -0.19499999999999984, :y 3.5250000000000004}}]
     (is (= expected-boid (second new-boids)))))
 
