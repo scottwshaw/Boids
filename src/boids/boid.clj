@@ -19,4 +19,4 @@
   ([boid-list the-bounds]
      (for [b boid-list] (move-boid-one-step b boid-list the-bounds)))
   ([boid-list the-bounds the-goal]
-     (for [b boid-list] (move-boid-one-step b boid-list the-bounds))))
+     (for [b boid-list] (move-boid-one-step b boid-list the-bounds the-goal))))

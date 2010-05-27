@@ -39,7 +39,7 @@
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
 	boids-a (atom (random-boids 50 drawable-bounds 10.0))
 	p (doto (proxy [JPanel] [] 
-		  (paint [g] (render-boids-and-move boids-a {:x 100 :y 300} g)))
+		  (paint [g] (render-boids-and-move boids-a {:x 0 :y 0} g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
     (dotimes [nframes 50]
