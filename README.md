@@ -19,24 +19,24 @@ than Craig's.
 Usage
 -----
 
- - In the top-level project directory, run
+In the top-level project directory, run
 
- $ lein repl
+    $ lein repl
 
- This gives you a Clojure REPL with all the classpaths set for the
- project.
+This gives you a Clojure REPL with all the classpaths set for the
+project.
 
-You can execute the following commands (in this sequence) in the REPL
+Now, you can execute the following commands (in this sequence) in the REPL
 
-    $ user=> (use 'boids.main)
+    user=> (use 'boids.main)
 
-    $ user=> (def s (initialise-boid-space-agent))
+    user=> (def s (initialise-boid-space-agent))
 
-    $ user=> (start-animation s)
+    user=> (start-animation s)
 
-    $ user=> (stop-animation s)
+    user=> (stop-animation s)
 
-    $ user=> (kill-animation s)
+    user=> (kill-animation s)
 
 Installation
 ------------
