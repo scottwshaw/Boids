@@ -18,7 +18,7 @@ Usage
 
 1. In the top-level project directory, run
 
-> lein repl
+\$ lein repl
 
 This gives you a Clojure REPL with all the classpaths set for the
 project.
@@ -31,7 +31,7 @@ user=> (def s (initialise-boid-space-agent))
 
 user=> (start-animation s)
 
-<<watch the animation for awhile>>
+*watch the animation for awhile*
 
 user=> (stop-animation s)
 
