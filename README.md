@@ -1,5 +1,5 @@
-# boids
-
+Boids
+=====
 This is a Clojure implementation of Craig Reynolds' original Boids
 flocking algorithm (http://www.red3d.com/cwr/boids/).  The Boids
 algorithm simulates coordinated animal motion such as you'd see in
@@ -13,7 +13,8 @@ simulation "Stanley and Stella in Breaking the Ice"
 The rendition implemented in this program is considerably lower-fi
 than Craig's.
 
-## Usage
+Usage
+-----
 
 1. In the top-level project directory, run
 
@@ -30,14 +31,16 @@ user=> (def s (initialise-boid-space-agent))
 
 user=> (start-animation s)
 
+<<watch the animation for awhile>>
+
 user=> (stop-animation s)
 
 user=> (kill-animation s)
 
-## Installation
+Installation
+------------
+1. You must first download and install leiningen (http://github.com/technomancy/leiningen)
 
-FIXME: write
-
-## License
-
+License
+-------
 What??  Like anybody cares.
