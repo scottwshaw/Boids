@@ -44,8 +44,8 @@ Installation
    [leiningen](http://github.com/technomancy/leiningen).  The
    installation instructions on the github page are pretty clear, but
    basically, you download the script (_not_ git clone), put it
-   somewhere in your path and make it executable, the run <tt>lein
-   self-install</tt>.
+   somewhere in your path and make it executable, then run 
+    $ <tt>lein self-install</tt>.
 2. Now fork or <tt>git clone</tt> this repository
 3. That's it.  Follow the usage instructions from there on out
 
