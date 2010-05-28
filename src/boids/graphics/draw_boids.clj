@@ -6,7 +6,7 @@
    (java.awt.image BufferedImage)
    (javax.swing JPanel)))
 
-(defn bpanel [bounds]
+(defn- bpanel [bounds]
   (let [d (new Dimension (- (:xmax bounds) (:xmin bounds)) (- (:ymax bounds) (:ymin bounds)))]
     (doto (proxy [JPanel] []) (.setPreferredSize d))))
 
@@ -34,9 +34,3 @@
     (dorun (map #(draw-boid % bounds bg) @boids))
     (. g (drawImage img 0 0 nil))
     (. bg (dispose))))
-
-(defn render-boid [b bounds g]
-  (doto g
-    (.setColor (. Color white))
-    (.fillRect 0 0 (- (:xmax bounds) (:xmin bounds)) (- (:ymax bounds) (:ymin bounds))))
-  (draw-boid b bounds g))

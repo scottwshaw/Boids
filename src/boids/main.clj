@@ -1,11 +1,9 @@
-(ns boids.graphics.draw-boids-test
-  (:use clojure.test
-	boids.boid
+(ns boids.main
+  (:use boids.boid
 	boids.bounds
 	boids.graphics.draw-boids
 	boids.random
-	boids.rules.total
-	boids.spatial-vector)
+	boids.rules.total)
   (:import  (java.awt Dimension)
 	    (javax.swing JFrame)
 	    (javax.swing JPanel)))
@@ -23,7 +21,25 @@
        (render-boids drawable-bounds boids-a g)
        (swap! boids-a move-all-boids-one-step drawable-bounds the-goal)))
 
-(defn- render-random-frame-sequence-with-overrides []
+(defn- animate-flock [boid-space-agent]
+  (loop []
+    (. (:panel @boid-space-agent) (repaint))
+    (. Thread (sleep 50))
+    (if (not (:stopped @boid-space-agent)) 
+      (recur)
+      boid-space-agent)))
+
+(defn- start [boid-space-agent]
+  {:panel (:panel boid-space-agent), 
+   :frame (:frame boid-space-agent), 
+   :stopped false})
+
+(defn- stop [boid-space-agent]
+  {:panel (:panel boid-space-agent), 
+   :frame (:frame boid-space-agent), 
+   :stopped true})
+
+(defn initialise-boid-space-agent []
   (let [d (new Dimension
 	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
@@ -32,13 +48,14 @@
 		  (paint [g] (render-boids-and-move boids-a {:x 0 :y 0} g)))
 	    (.setPreferredSize d))
 	f (doto (new JFrame) (.add p) .pack .show)]
-    (dotimes [nframes 25]
-      (. Thread (sleep 50))
-      (. p (repaint)))
-    (. f (dispose))))
+    (agent (agent {:panel p, :frame f, :stopped true}))))
 
-(deftest should-render-frame-sequence 
-  (render-random-frame-sequence-with-overrides))
+(defn start-animation [boid-space-agent]
+  (send @boid-space-agent start)
+  (send boid-space-agent animate-flock))
 
-    
+(defn stop-animation [boid-space-agent] 
+  (send @boid-space-agent stop))
 
+(defn kill-animation [boid-space-agent]
+  (send @boid-space-agent #(. (:frame %) (dispose))))
