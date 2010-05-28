@@ -37,21 +37,28 @@ In the top-level project directory, run
     $ lein repl
 
 This gives you a Clojure REPL with all the classpaths set for the
-project.
-
-Now, you can execute the following commands (in this sequence) in the
+project. Now, you can execute the following commands (in this sequence) in the
 REPL
 
-    user=> (use 'boids.main) ; imports the functions in src/boids/main.clj
+Import the functions in src/boids/main.clj
+
+    user=> (use 'boids.main)
+
+Generate a Var s that is a "double agent" (my term) for controlling the display
 
     user=> (def s (initialise-boid-space-agent)) 
-	       ; s is a "double agent" (my term) for controlling the display
+	       
+Start the flock moving
 
-    user=> (start-animation s) ; starts the flock moving
+    user=> (start-animation s) 
 
-    user=> (stop-animation s) ; freezes the flock in place
+Freeze the flock in place
 
-    user=> (kill-animation s) ; kills the flock
+    user=> (stop-animation s) 
+
+Kills the flock and it's window
+
+    user=> (kill-animation s) 
 
 License
 -------
