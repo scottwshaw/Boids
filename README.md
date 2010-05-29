@@ -29,6 +29,12 @@ self-install` at the command line.
 Beware that leiningen is maven-like and will try to download the entire
 universe when you run it the first time.
 
+Alternatively, you can execute the shell script in the top level
+directory called `repl` but you will have to make sure the jline jar
+and clojure jars are in place and edit the script to reflect the
+location of your project and repository.  Once you run lein, they should be
+there though.  The `repl` script gives you more control over the
+Java classpaths and stuff.
 
 Usage
 -----
@@ -47,19 +53,20 @@ Import the functions in src/boids/main.clj
 Generate a Var s that is a "double agent" (my term) for controlling
 the flock display
 
-  user=> (def s (init-flock))
+    user=> (def f (init-flock))
 	       
-Start the flock moving
+Start the flock moving.  Watch them fly (or swim). Whoo-hoo!
 
-    user=> (start-flock s) 
+    user=> (start-flock f) 
 
-Freeze the flock in place
+Freeze the flock in place. You can always restart with `start-flock` if
+you wish.
 
-    user=> (stop-flock s) 
+    user=> (stop-flock f) 
 
-Kills the flock and it's window
+Kills the flock and its window
 
-    user=> (kill-flock s) 
+    user=> (kill-flock f) 
 
 License
 -------
