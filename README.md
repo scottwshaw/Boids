@@ -25,16 +25,18 @@ clear, but basically, you download the script (_not_ git clone), put
 it somewhere in your path and make it executable, then run  `lein
 self-install` at the command line.
 3. Fork or `git clone` this repository
-4. That's it.  Follow the usage instructions from there on out.
-Beware that leiningen is maven-like and will try to download the entire
-universe when you run it the first time.
+4. In the top level Boids directory, run the command `lein deps` This
+will download and install clojure and other jars needed to build and
+run the project.
+5. That's it.  Follow the usage instructions from there on out.
 
 Alternatively, you can execute the shell script in the top level
 directory called `repl` but you will have to make sure the jline jar
 and clojure jars are in place and edit the script to reflect the
-location of your project and repository.  Once you run lein, they should be
-there though.  The `repl` script gives you more control over the
-Java classpaths and stuff.
+location of your project and dependencies.  Howeer, once you have run
+`lein deps`, they should be there in approximately the same place as
+mine.  The `repl` script gives you more control over the Java
+classpaths and stuff.
 
 Usage
 -----
@@ -50,7 +52,7 @@ Import the functions in src/boids/main.clj
 
     user=> (use 'boids.main)
 
-Generate a Var s that is a "double agent" (my term) for controlling
+Generate a flock, f, which is a "double agent" (my term) for controlling
 the flock display
 
     user=> (def f (init-flock))
