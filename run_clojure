@@ -1,0 +1,13 @@
+#!/bin/bash
+
+BOIDS_HOME=~/Documents/Development/Clojure/Boids
+
+JLINE_JAR=$BOIDS_HOME/../jline-0_9_5.jar
+CLOJURE_JAR=$BOIDS_HOME/../clojure/clojure.jar
+CLOJURE_CONTRIB_JAR=$BOIDS_HOME/../clojure-contrib/target/clojure-contrib-1.2.0-SNAPSHOT.jar
+BOIDS_PATH=$BOIDS_HOME/src
+CLASSPATH=$JLINE_JAR:$CLOJURE_JAR:$CLOJURE_CONTRIB_JAR:$BOIDS_PATH:$CLASSPATH
+# Run with YourKit profiler
+JVM_ARGS="-server -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8888 -agentpath:/Users/sshaw/Downloads/YourKit_Java_Profiler_9.0.3.app/bin/mac/libyjpagent.jnilib"
+
+java $JVM_ARGS -cp $CLASSPATH jline.ConsoleRunner clojure.main

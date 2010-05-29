@@ -22,9 +22,9 @@ installed on your system
 [leiningen](http://github.com/technomancy/leiningen).  The
 installation instructions on the leiningen github page are pretty
 clear, but basically, you download the script (_not_ git clone), put
-it somewhere in your path and make it executable, then run  <tt>lein
-self-install</tt> at the command 
-3. Fork or <tt>git clone</tt> this repository
+it somewhere in your path and make it executable, then run  `lein
+self-install` at the command line.
+3. Fork or `git clone` this repository
 4. That's it.  Follow the usage instructions from there on out.
 Beware that leiningen is maven-like and will try to download the entire
 universe when you run it the first time.
