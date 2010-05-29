@@ -10,6 +10,6 @@ CLOJURE_CONTRIB_JAR=$BOIDS_HOME/clojure-contrib-1.1.0.jar
 BOIDS_SRC_PATH=$BOIDS_HOME/src
 CLASSPATH=$JLINE_JAR:$CLOJURE_JAR:$CLOJURE_CONTRIB_JAR:$BOIDS_SRC_PATH:$CLASSPATH
 # Run with YourKit profiler
-JVM_ARGS="-server -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8888 -agentpath:/Users/sshaw/Downloads/YourKit_Java_Profiler_9.0.3.app/bin/mac/libyjpagent.jnilib -Xincgc -Xms384m -Xmx384m -XX:NewSize=128m -XX:MaxNewSize=128m"
+JVM_ARGS="-server -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8888 -Xincgc -Xms384m -Xmx384m -XX:NewSize=128m -XX:MaxNewSize=128m"
 
 java $JVM_ARGS -cp $CLASSPATH jline.ConsoleRunner clojure.main
