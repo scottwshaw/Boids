@@ -2,8 +2,7 @@
 
 # Edit these lines to reflect your local environment
 BOIDS_HOME=~/Documents/Development/Clojure/Boids
-MAVEN_REPO=~/.m2/repository
-JLINE_JAR=$MAVEN_REPO/jline/jline/0.9.94/jline-0.9.94.jar
+JLINE_JAR=~/.m2/repository/jline/jline/0.9.94/jline-0.9.94.jar
 
 # The rest should be OK
 CLOJURE_JAR=$BOIDS_HOME/lib/clojure-1.1.0.jar
