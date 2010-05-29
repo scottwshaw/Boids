@@ -44,21 +44,22 @@ Import the functions in src/boids/main.clj
 
     user=> (use 'boids.main)
 
-Generate a Var s that is a "double agent" (my term) for controlling the display
+Generate a Var s that is a "double agent" (my term) for controlling
+the flock display
 
-    user=> (def s (initialise-boid-space-agent)) 
+  user=> (def s (init-flock))
 	       
 Start the flock moving
 
-    user=> (start-animation s) 
+    user=> (start-flock s) 
 
 Freeze the flock in place
 
-    user=> (stop-animation s) 
+    user=> (stop-flock s) 
 
 Kills the flock and it's window
 
-    user=> (kill-animation s) 
+    user=> (kill-flock s) 
 
 License
 -------

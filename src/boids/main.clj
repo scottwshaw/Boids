@@ -39,7 +39,7 @@
    :frame (:frame boid-space-agent), 
    :stopped true})
 
-(defn initialise-boid-space-agent []
+(defn init-flock []
   (let [d (new Dimension
 	       (- (:xmax drawable-bounds) (:xmin drawable-bounds)) 
 	       (- (:ymax drawable-bounds) (:ymin drawable-bounds)))
@@ -50,12 +50,12 @@
 	f (doto (new JFrame) (.add p) .pack .show)]
     (agent (agent {:panel p, :frame f, :stopped true}))))
 
-(defn start-animation [boid-space-agent]
+(defn start-flock [boid-space-agent]
   (send @boid-space-agent start)
   (send boid-space-agent animate-flock))
 
-(defn stop-animation [boid-space-agent] 
+(defn stop-flock [boid-space-agent] 
   (send @boid-space-agent stop))
 
-(defn kill-animation [boid-space-agent]
+(defn kill-flock [boid-space-agent]
   (send @boid-space-agent #(. (:frame %) (dispose))))
