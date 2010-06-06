@@ -41,9 +41,3 @@
 	  sv-diff-return-ex (mock/returns ret-val)]
       (mock/expect [sv-diff sv-diff-return-ex]
 	   (is (= (center-of-mass-adjustment b2 [b1 b2 b3 b4]) ret-val))))))
-    
-
-;; x = 2.833333333/1000, y = -2.5/1000
-(deftest test-should-correctly-calculate-center-of-mass-adjustment
-  (is (= (center-of-mass-adjustment b2 initial-boid-list)
-	 (struct-map spatial-vector :x -2.8333333333333334 :y 2.5))))
