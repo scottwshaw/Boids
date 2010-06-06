@@ -1,8 +1,7 @@
 (ns boids.rules.center-of-mass-test
   (:use clojure.test 
-	boids.boid
 	boids.boid-test
-	boids.rules.center-of-mass 
+	boids.rules.center-of-mass
 	boids.spatial-vector)
   (:require [clojure.contrib.mock :as mock]))
 
@@ -14,7 +13,7 @@
 			     (:location b4)] 
 			    (mock/returns {:x 3, :y 3}))]
       (is (mock/expect [sv-sum ex] (center-of-mass-exclusive-of the-boids b2)))))
-  (testing "correct com value exclusive self"
+  (testing "correct center of mass value exclusive self"
     (let [the-boids [b1 b3 b2 b4]
 	  ret-val (- (.length the-boids) 1)]
       (mock/expect [sv-sum (mock/returns {:x ret-val, :y ret-val})] 
