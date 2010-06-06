@@ -24,17 +24,24 @@
 	  sv-sum-ex (mock/returns sv-sum-return)
 	  sv-div-ex (mock/has-args [sv-sum-return len-minus-1]
 				   (mock/returns {:x 0, :y 0}))]
-      (mock/expect [sv-sum sv-sum-ex
-		    sv-div sv-div-ex]
-		   (velocity-adjustment b2 [b1 b2 b3 b4]))))
+      (is (mock/expect [sv-sum sv-sum-ex
+			sv-div sv-div-ex]
+		       (velocity-adjustment b2 [b1 b2 b3 b4])))))
   (testing "arguments passed to sv-diff"
     (let [the-boids [b1 b2 b3 b4]
 	  dummy-avg {:x 1, :y 1}
 	  sv-div-ex (mock/returns dummy-avg)
 	  sv-diff-ex (mock/has-args [dummy-avg (:velocity b2)])]
-      (mock/expect [sv-div sv-div-ex
-		    sv-diff sv-diff-ex]
-		   (velocity-adjustment b2 [b1 b2 b3 b4])))))
+      (is (mock/expect [sv-div sv-div-ex
+			sv-diff sv-diff-ex]
+		       (velocity-adjustment b2 [b1 b2 b3 b4])))))
+  (testing "return value of velocity adjustment is output of sv-diff"
+    (let [the-boids [b1 b2 b3 b4]
+	  ret-val {:x 1, :y 1}
+	  sv-diff-ex (mock/returns ret-val)]
+      (mock/expect [sv-diff sv-diff-ex]
+		   (is (= (velocity-adjustment b2 [b1 b2 b3 b4]) ret-val))))))
+    
 
 ;; send with a tolerance of 0.0 so all boids are updated
 (deftest test-should-match-velocities-of-other-boids
