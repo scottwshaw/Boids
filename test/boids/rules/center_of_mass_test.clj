@@ -35,7 +35,12 @@
       (is (mock/expect 
 	   [center-of-mass-exclusive-of com-return-ex
 	    sv-diff diff-args-ex]
-	   (center-of-mass-adjustment b2 the-boids))))))
+	   (center-of-mass-adjustment b2 the-boids)))))
+  (testing "center-of-mass-adjustment return value"
+    (let [ret-val {:x 1, :y 1}
+	  sv-diff-return-ex (mock/returns ret-val)]
+      (mock/expect [sv-diff sv-diff-return-ex]
+	   (is (= (center-of-mass-adjustment b2 [b1 b2 b3 b4]) ret-val))))))
     
 
 ;; x = 2.833333333/1000, y = -2.5/1000
