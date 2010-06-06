@@ -27,16 +27,15 @@
 			    (mock/returns {:x 3, :y 3}))]
       (is (mock/expect [center-of-mass-exclusive-of ex] 
 		       (center-of-mass-adjustment b2 the-boids)))))
-  (testing "arguments passed to diff function"
+  (testing "arguments passed to sv-diff function"
     (let [the-boids [b1 b3 b2 b4]
 	  c-o-m {:x 1, :y 1}
 	  com-return-ex (mock/returns c-o-m)
 	  diff-args-ex (mock/has-args [c-o-m (:location b2)])]
       (is (mock/expect 
-	   [center-of-mass-exclusive-of com-return-ex]
-	   (mock/expect
-	    [sv-diff diff-args-ex] 
-	    (center-of-mass-adjustment b2 the-boids)))))))
+	   [center-of-mass-exclusive-of com-return-ex
+	    sv-diff diff-args-ex]
+	   (center-of-mass-adjustment b2 the-boids))))))
     
 
 ;; x = 2.833333333/1000, y = -2.5/1000
