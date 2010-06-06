@@ -14,6 +14,9 @@ Ice"](http://www.youtube.com/watch?v=3bTqWsVqyzE&NR=1).
 The rendition implemented in this program is considerably lower-fi
 than Craig's.
 
+Mostly, I'm using this project to teach myself how to use Clojure and
+how to write proper tests in Clojure.
+
 Installation
 ------------
 1. This is Clojure, so you will need to have Java (preferably 1.6)
