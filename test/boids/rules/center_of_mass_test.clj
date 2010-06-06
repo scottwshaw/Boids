@@ -20,10 +20,24 @@
       (mock/expect [sv-sum (mock/returns {:x ret-val, :y ret-val})] 
 		   (is (= (center-of-mass-exclusive-of the-boids b2) {:x 1, :y 1}))))))
 
-(deftest test-should-correctly-calculate-center-of-mass-exclusive-of
-  (let [the-boids [b2 b3 b1 b4]]
-    (is (<= 3.16665 (:y (center-of-mass-exclusive-of the-boids b1)) 3.16667))
-    (is (>= -0.49999 (:x (center-of-mass-exclusive-of the-boids b1)) -0.50001))))
+(deftest test-center-of-mass-adjustment
+  (testing "arguments passed to center-of-mass function"
+    (let [the-boids [b1 b3 b2 b4]
+	  ex (mock/has-args [the-boids b2]
+			    (mock/returns {:x 3, :y 3}))]
+      (is (mock/expect [center-of-mass-exclusive-of ex] 
+		       (center-of-mass-adjustment b2 the-boids)))))
+  (testing "arguments passed to diff function"
+    (let [the-boids [b1 b3 b2 b4]
+	  c-o-m {:x 1, :y 1}
+	  com-return-ex (mock/returns c-o-m)
+	  diff-args-ex (mock/has-args [c-o-m (:location b2)])]
+      (is (mock/expect 
+	   [center-of-mass-exclusive-of com-return-ex]
+	   (mock/expect
+	    [sv-diff diff-args-ex] 
+	    (center-of-mass-adjustment b2 the-boids)))))))
+    
 
 ;; x = 2.833333333/1000, y = -2.5/1000
 (deftest test-should-correctly-calculate-center-of-mass-adjustment
