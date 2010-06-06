@@ -7,6 +7,7 @@
 	boids.rules.total
 	boids.spatial-vector))
 
+
 (deftest should-compute-correct-adjustment-in-bounds
   (is (= (total-adjustment b2 [b1 b2 b3 b4] initial-bounds {:x -3 :y 5})
 	 (struct spatial-vector -0.19499999999999984  3.5250000000000004))))

@@ -3,13 +3,22 @@
 	boids.boid
 	boids.boid-test
 	boids.rules.center-of-mass 
-	boids.spatial-vector))
+	boids.spatial-vector)
+  (:require [clojure.contrib.mock :as mock]))
 
-; x = -.5, y = 3.1666666
-(deftest should-correctly-calculate-center-of-mass-on-list-of-boids
-  (let [the-boids [b2 b3 b4]]
-    (is (<= 3.16665 (:y (center-of-mass the-boids)) 3.16667))
-    (is (>= -0.49999 (:x (center-of-mass the-boids)) -0.50001))))
+(deftest test-center-of-mass-exclusive-of
+  (testing "does not pass self to sum"
+    (let [the-boids [b1 b3 b2 b4]
+	  ex (mock/has-args [(:location b1) 
+			     (:location b3)
+			     (:location b4)] 
+			    (mock/returns {:x 3, :y 3}))]
+      (is (mock/expect [sv-sum ex] (center-of-mass-exclusive-of the-boids b2)))))
+  (testing "correct com value exclusive self"
+    (let [the-boids [b1 b3 b2 b4]
+	  ret-val (- (.length the-boids) 1)]
+      (mock/expect [sv-sum (mock/returns {:x ret-val, :y ret-val})] 
+		   (is (= (center-of-mass-exclusive-of the-boids b2) {:x 1, :y 1}))))))
 
 (deftest test-should-correctly-calculate-center-of-mass-exclusive-of
   (let [the-boids [b2 b3 b1 b4]]
