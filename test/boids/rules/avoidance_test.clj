@@ -5,8 +5,7 @@
 	boids.spatial-vector))
 
 (deftest should-return-all-boids-in-radius-of-b2
-  (let [point (struct-map spatial-vector :x 1.5 :y 1.82)
-	nearby-boids (boids-in-radius initial-boid-list (:location b2) 2.0)]
+  (let [nearby-boids (boids-in-radius initial-boid-list (:location b2) 2.0)]
     (is (not (nil? (some #(identical? b1 %) nearby-boids))))
     (is (not (nil? (some #(identical? b3 %) nearby-boids))))))
 
