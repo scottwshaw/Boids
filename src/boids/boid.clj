@@ -11,7 +11,7 @@
   (distance-between (:location boid-1) (:location boid-2)))
 
 (defn boids-in-radius-of-boid [blist the-boid radius]
-  (filter #(<= (distance-between (:location the-boid) (:location %)) radius) blist))
+  (filter #(<= (distance-between-boids the-boid %) radius) blist))
 
 (defn move-boid-one-step [the-boid all-boids the-bounds the-goal]
      (let [adjustment (total-adjustment the-boid all-boids the-bounds the-goal)]
