@@ -3,8 +3,7 @@
 	boids.boid 
 	boids.bounds
 	boids.bounds-test
-	boids.spatial-vector)
-  (:require [clojure.contrib.mock :as mock]))
+	boids.spatial-vector))
 
 (def b1 (struct-map boid
 	  :location (struct-map spatial-vector :x 1 :y 2)
@@ -34,25 +33,6 @@
 
 (def initial-boid-list [b1 b2 b3 b4])
 (def initial-boid-list [b1 b2 b3 b4])
-
-(deftest test-distance-between-boids
-  (let [distance 1.0]
-    (mock/expect [distance-between (mock/has-args [(:location b1) (:location b2)] (mock/returns distance))]
-		 (is (= (distance-between-boids b1 b2) distance)))))
-
-(def test-radius 2.0)
-
-(defn d-b-mock-call [_ test-boid]
-  (println test-boid)
-  (cond (= test-boid b1) (- test-radius 1.0) ; in
-	(= test-boid b3) (+ test-radius 1.0) ; out
-	(= test-boid b4) (- test-radius 1.0))) ; in
-
-(deftest test-boids-in-radius 
-  (testing "returns boids that are in"
-    (mock/expect [distance-between-boids (mock/times 3 (mock/calls d-b-mock-call))]
-		 (is (= (boids-in-radius-of-boid [b1 b3 b4] b2 test-radius)
-			(list b1 b4))))))
 
 (deftest should-move-boid-one-step
   (let [loc (struct spatial-vector -6.5 6.0)

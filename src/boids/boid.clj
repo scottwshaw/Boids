@@ -7,12 +7,6 @@
 (defn new-boid [x y vx vy]
   (struct boid (struct spatial-vector x y) (struct spatial-vector vx vy)))
 
-(defn distance-between-boids [boid-1 boid-2]
-  (distance-between (:location boid-1) (:location boid-2)))
-
-(defn boids-in-radius-of-boid [blist the-boid radius]
-  (filter #(<= (distance-between-boids the-boid %) radius) blist))
-
 (defn move-boid-one-step [the-boid all-boids the-bounds the-goal]
      (let [adjustment (total-adjustment the-boid all-boids the-bounds the-goal)]
        (struct boid (sv-sum (:location the-boid) adjustment) adjustment)))

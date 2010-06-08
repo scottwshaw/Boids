@@ -2,24 +2,26 @@
   (:use clojure.test 
 	boids.boid-test
 	boids.rules.avoidance
-	boids.spatial-vector))
+	boids.spatial-vector)
+  (:require [clojure.contrib.mock :as mock]))
 
-(deftest should-return-all-boids-in-radius-of-b2
-  (let [nearby-boids (boids-in-radius initial-boid-list (:location b2) 2.0)]
-    (is (not (nil? (some #(identical? b1 %) nearby-boids))))
-    (is (not (nil? (some #(identical? b3 %) nearby-boids))))))
+(deftest test-distance-between-boids
+  (let [distance 1.0]
+    (mock/expect [distance-between (mock/has-args [(:location b1) (:location b2)] (mock/returns distance))]
+		 (is (= (distance-between-boids b1 b2) distance)))))
 
-(deftest should-not-return-boids-outside-specified-radius
-  (let [point (struct-map spatial-vector :x 1.5 :y 1.82)
-	nearby-boids (boids-in-radius initial-boid-list point 2.0)]
-    (is (nil? (some #(identical? b4 %) nearby-boids)))))
+(def test-radius 2.0)
 
-(deftest should-return-all-boids-in-specified-radius
-  (let [point (struct-map spatial-vector :x 1.5 :y 1.82)
-	nearby-boids (boids-in-radius initial-boid-list point 2.0)]
-    (is (not (nil? (some #(identical? b1 %) nearby-boids))))
-    (is (not (nil? (some #(identical? b2 %) nearby-boids))))
-    (is (not (nil? (some #(identical? b3 %) nearby-boids))))))
+(defn d-b-mock-call [_ test-boid]
+  (cond (= test-boid b1) (- test-radius 1.0) ; in
+	(= test-boid b3) (+ test-radius 1.0) ; out
+	(= test-boid b4) (- test-radius 1.0))) ; in
+
+(deftest test-boids-in-radius 
+  (testing "returns boids that are in"
+    (mock/expect [distance-between-boids (mock/times 3 (mock/calls d-b-mock-call))]
+		 (is (= (boids-in-radius-of-boid [b1 b3 b4] b2 test-radius)
+			(list b1 b4))))))
 
 (deftest test-should-move-away-from-other-boid
   (is (= (struct-map spatial-vector :x 1.5 :y -2.5) (avoidance-adjustment b2 initial-boid-list 2.0))))
