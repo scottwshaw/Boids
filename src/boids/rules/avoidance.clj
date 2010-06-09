@@ -9,7 +9,6 @@
   (filter #(<= (distance-between-boids the-boid %) radius) blist))
 
 (defn avoidance-adjustment [the-boid blist avoidance-radius] 
-  (let [the-point (:location the-boid)
-	boids-to-avoid (remove #(= the-boid %) 
+  (let [boids-to-avoid (remove #(= the-boid %) 
 			       (boids-in-radius blist the-boid avoidance-radius))]
-    (apply sv-sum (map #(sv-diff the-point %) (map :location boids-to-avoid)))))
+    (apply sv-sum (map #(sv-diff (:location the-boid) %) (map :location boids-to-avoid)))))

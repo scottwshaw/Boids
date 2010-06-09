@@ -2,6 +2,7 @@
   (:use boids.boid
 	boids.bounds
 	boids.graphics.draw-boids
+	boids.move-boid
 	boids.random
 	boids.rules.total)
   (:import  (java.awt Dimension)
