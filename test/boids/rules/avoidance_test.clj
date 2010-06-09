@@ -20,7 +20,7 @@
 
 (deftest test-boids-in-radius
   (testing "returns only boids that are in"
-    (mock/expect [distance-between-boids (mock/times 3 (mock/calls d-b-mock-call))]
+    (mock/expect [distance-between-boids (mock/times 4 (mock/calls d-b-mock-call))]
 		 (is (= (boids-in-radius [b1 b2 b3 b4] b2 test-radius)
 			(list b1 b2 b4))))))
 
