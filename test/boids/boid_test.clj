@@ -1,9 +1,10 @@
 (ns boids.boid-test
-  (:use clojure.test 
+  (:use clojure.test
 	boids.boid 
 	boids.bounds
 	boids.bounds-test
-	boids.spatial-vector))
+	boids.spatial-vector)
+  (:require [clojure.contrib.mock :as mock]))
 
 (def b1 (struct-map boid
 	  :location (struct-map spatial-vector :x 1 :y 2)
@@ -23,6 +24,8 @@
 	   vel (struct-map spatial-vector :x 0.1 :y 0.2)]
        (struct-map boid :location pos :velocity vel)))
 
+(def initial-boid-list [b1 b2 b3 b4])
+
 (deftest test-should-access-boid-location-after-initialisation
   (is (= 1 (:x (:location initial-boid))))
   (is (= 2 (:y (:location initial-boid)))))
@@ -31,7 +34,16 @@
     (is (= 0.1 (:x (:velocity initial-boid))))
     (is (= 0.2 (:y (:velocity initial-boid)))))
 
-(def initial-boid-list [b1 b2 b3 b4])
-(def initial-boid-list [b1 b2 b3 b4])
+(deftest test-absolute-distance-between-boids
+  (let [distance 1.0]
+    (mock/expect [distance-between (mock/has-args [(:location b1) (:location b2)] (mock/returns distance))]
+		 (is (= (absolute-distance-between-boids b1 b2) distance)))))
+
+(deftest test-distance-between-boids
+  (let [distance 1.0
+	sv-diff-ex (mock/has-args [(:location b1) (:location b2)] (mock/returns distance))]
+    (mock/expect
+     [sv-diff sv-diff-ex]
+     (is (= (distance-between-boids b1 b2) distance)))))
 
 

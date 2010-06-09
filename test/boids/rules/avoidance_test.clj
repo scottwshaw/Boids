@@ -1,14 +1,10 @@
 (ns boids.rules.avoidance-test
   (:use clojure.test 
+	boids.boid
 	boids.boid-test
 	boids.rules.avoidance
 	boids.spatial-vector)
   (:require [clojure.contrib.mock :as mock]))
-
-(deftest test-distance-between-boids
-  (let [distance 1.0]
-    (mock/expect [distance-between (mock/has-args [(:location b1) (:location b2)] (mock/returns distance))]
-		 (is (= (distance-between-boids b1 b2) distance)))))
 
 (def test-radius 2.0)
 
@@ -20,7 +16,7 @@
 
 (deftest test-boids-in-radius
   (testing "returns only boids that are in"
-    (mock/expect [distance-between-boids (mock/times 4 (mock/calls d-b-mock-call))]
+    (mock/expect [absolute-distance-between-boids (mock/times 4 (mock/calls d-b-mock-call))]
 		 (is (= (boids-in-radius [b1 b2 b3 b4] b2 test-radius)
 			(list b1 b2 b4))))))
 
