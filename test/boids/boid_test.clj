@@ -54,3 +54,17 @@
 		  sv-sum (mock/has-args [vvalue vvalue vvalue] 
 					(mock/returns vvalue))]
 		  (is (= (sum-of-distances-between-boids the-boid boid-list) vvalue)))))
+
+(deftest test-average-velocity
+  (let [boid-list [b1 b2 b3 b4]
+	vvalue {:x 4.0, :y 4.0}
+	len 4]
+    (mock/expect [sv-sum (mock/returns vvalue)
+		  sv-div (mock/has-args [vvalue len] (mock/returns vvalue))]
+		 (is (= (average-velocity boid-list) vvalue)))))
+
+(deftest test-take-velocity-from
+  (let [vvalue {:x 1.0, :y 1.0}
+	the-boid b1]
+    (is (= (take-velocity-from vvalue the-boid) (sv-diff vvalue (:velocity the-boid))))))
+	

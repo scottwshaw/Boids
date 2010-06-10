@@ -1,46 +1,18 @@
 (ns boids.rules.velocity-test
   (:use clojure.test 
+	boids.boid
 	boids.boid-test
 	boids.rules.velocity
 	boids.spatial-vector)
   (:require [clojure.contrib.mock :as mock]))
 
-
-;; There appears to be a bug in mock/has-args that prevents you from passing anything
-;; except the literal vector of arguments.  A function that returns this vector, such as
-;; (vec (map :velocity [b1 b3 b4])), or even a local binding to a var, doesn't work.
 (deftest test-velocity-adjustment
-  (testing "arguments passed to sum"
-    (let [sv-sum-args-ex (mock/has-args [(:velocity b1)
-					 (:velocity b3)
-					 (:velocity b4)] (mock/returns {:x 1, :y 1}))]
-      (is (mock/expect
-	   [sv-sum sv-sum-args-ex]
-	   (velocity-adjustment b2 [b1 b2 b3 b4])))))
-  (testing "arguments passed to sv-div"
-    (let [the-boids [b1 b2 b3 b4]
-	  len-minus-1 (- (.length the-boids) 1)
-	  sv-sum-return {:x len-minus-1, :y len-minus-1}
-	  sv-sum-ex (mock/returns sv-sum-return)
-	  sv-div-ex (mock/has-args [sv-sum-return len-minus-1]
-				   (mock/returns {:x 0, :y 0}))]
-      (is (mock/expect [sv-sum sv-sum-ex
-			sv-div sv-div-ex]
-		       (velocity-adjustment b2 [b1 b2 b3 b4])))))
-  (testing "arguments passed to sv-diff"
-    (let [the-boids [b1 b2 b3 b4]
-	  dummy-avg {:x 1, :y 1}
-	  sv-div-ex (mock/returns dummy-avg)
-	  sv-diff-ex (mock/has-args [dummy-avg (:velocity b2)])]
-      (is (mock/expect [sv-div sv-div-ex
-			sv-diff sv-diff-ex]
-		       (velocity-adjustment b2 [b1 b2 b3 b4])))))
-  (testing "return value of velocity adjustment is output of sv-diff"
-    (let [the-boids [b1 b2 b3 b4]
-	  ret-val {:x 1, :y 1}
-	  sv-diff-ex (mock/returns ret-val)]
-      (mock/expect [sv-diff sv-diff-ex]
-		   (is (= (velocity-adjustment b2 [b1 b2 b3 b4]) ret-val))))))
+  (let [the-boid b1
+	blist [b2 b3 b4]
+	vval {:x 1.0, :y 1.0}]
+    (mock/expect [average-velocity (mock/has-args [blist] (mock/returns vval))
+		  take-velocity-from (mock/has-args [vval the-boid] (mock/returns vval))]
+		 (is (= (velocity-adjustment the-boid blist) vval)))))
     
 
 ;; send with a tolerance of 0.0 so all boids are updated

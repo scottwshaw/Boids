@@ -14,3 +14,11 @@
 
 (defn sum-of-distances-between-boids [the-boid boid-list]
   (apply sv-sum (map #(distance-between-boids the-boid %) boid-list)))
+
+(defn average-velocity [blist]
+  (let [vsum (apply sv-sum (map :velocity blist))
+	len (.length (vec blist))]
+    (sv-div vsum len)))
+
+(defn take-velocity-from [sv-value the-boid]
+  (sv-diff sv-value (:velocity the-boid)))
