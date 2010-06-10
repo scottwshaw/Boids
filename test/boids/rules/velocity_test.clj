@@ -2,8 +2,7 @@
   (:use clojure.test 
 	boids.boid
 	boids.boid-test
-	boids.rules.velocity
-	boids.spatial-vector)
+	boids.rules.velocity)
   (:require [clojure.contrib.mock :as mock]))
 
 (deftest test-velocity-adjustment
