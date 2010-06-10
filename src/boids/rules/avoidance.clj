@@ -1,6 +1,5 @@
 (ns boids.rules.avoidance
-  (:use boids.boid
-	boids.spatial-vector))
+  (:use boids.boid))
 
 (defn boids-in-radius [blist the-boid radius]
   (filter #(<= (absolute-distance-between-boids the-boid %) radius) blist))
