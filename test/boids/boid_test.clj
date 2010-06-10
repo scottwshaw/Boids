@@ -46,4 +46,11 @@
      [sv-diff sv-diff-ex]
      (is (= (distance-between-boids b1 b2) distance)))))
 
-
+(deftest test-sum-of-distances
+  (let [the-boid b2
+	boid-list [b1 b3 b4]
+	vvalue {:x 1.0 :y 1.0}]
+    (mock/expect [distance-between-boids (mock/has-args [the-boid] (mock/returns vvalue (mock/times 3)))
+		  sv-sum (mock/has-args [vvalue vvalue vvalue] 
+					(mock/returns vvalue))]
+		  (is (= (sum-of-distances-between-boids the-boid boid-list) vvalue)))))

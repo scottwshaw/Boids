@@ -24,8 +24,9 @@
   (testing "args to distance calcuation"
     (let [boids [b1 b2 b3 b4]]
       (is (mock/expect [boids-in-radius (mock/returns [b1 b3 b4])
-			distance-between-boids (mock/times 3 (mock/has-args [b2] (mock/returns {:x 1.0, :y 1.0})))]
-		       (avoidance-adjustment b2 boids 2.0))))))
+			sum-of-distances-between-boids (mock/has-args [b2 [b1 b3 b4]] (mock/returns {:x 1.0, :y 1.0}))]
+		       (avoidance-adjustment b2 boids 2.0)))))
+  (testing ""))
 		 
 
 (deftest test-should-move-away-from-other-boid

@@ -11,3 +11,6 @@
 
 (defn distance-between-boids [boid-1 boid-2]
   (sv-diff (:location boid-1) (:location boid-2)))
+
+(defn sum-of-distances-between-boids [the-boid boid-list]
+  (apply sv-sum (map #(distance-between-boids the-boid %) boid-list)))
