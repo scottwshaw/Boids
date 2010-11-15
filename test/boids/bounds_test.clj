@@ -2,7 +2,6 @@
   (:use boids.bounds
 	boids.spatial-vector
 	clojure.test
-	midje.checkers
 	midje.semi-sweet))
 
 (def initial-bounds (struct bounds -10 10 0 20))
